@@ -35,6 +35,9 @@ def parser():
     check = commands.add_parser("check-config", help="Check required settings without showing values")
     check.add_argument("--portal", type=Path, default=Path("portals/github.json"))
     check.add_argument("--inputs", type=Path, default=Path("examples/inputs.github.json"))
+    api = commands.add_parser("api", help="Run the authenticated localhost job queue API")
+    api.add_argument("--port", type=int, default=8765)
+    api.add_argument("--max-queued", type=int, default=8)
     return result
 
 
@@ -46,6 +49,10 @@ async def main(args):
     if args.command == "demo":
         from .demo import acceptance_demo
         return await acceptance_demo(args.output)
+    if args.command == "api":
+        from .api import serve
+        serve(Path.cwd(), port=args.port, max_queued=args.max_queued)
+        return 0
     if args.command == "check-config":
         # Report missing settings first. Normal config interpolation correctly
         # fails fast on missing credentials, but a diagnostic needs to list all.

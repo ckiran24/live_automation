@@ -1,5 +1,5 @@
 **##Live-automation**
-A single-process Python/Playwright CLI with automated email or TOTP codes, reusable browser state, semantic locator fallbacks, PDF/download capture, and redacted failure evidence.
+A Python/Playwright runner with automated email or TOTP codes, reusable browser state, semantic locator fallbacks, PDF/download capture, redacted failure evidence, and an authenticated localhost FIFO job API.
 
 To run the downloaded project locally, follow [Download and run in VS Code](docs/VSCODE.md), including Windows and macOS/Linux commands and ready-to-use debugger configurations.
 
@@ -85,7 +85,39 @@ Run the same command again to reuse `.state/github.json`. To generate a differen
 
 `--headed` is available on a machine with a display. `--state` chooses a session path; `--output` chooses a fresh run directory. Exit codes: 0 success, 1 runtime failure with manifest/evidence, 2 invalid setup/configuration before execution, 130 interrupted. Concurrent invocations must use different state/output paths; the intended shape is one sequential CLI process.
 
-The live path is private profile → repository → releases → new release. The form contains tag, target branch, title, and notes. A **new, non-existing tag choice makes the target branch relevant**; use a unique tag in the input. Selecting that tag in the form does not create it on GitHub until publishing. The runner renders the Markdown preview and prints the page using Chromium. It never clicks Publish or Save draft. Your `shopping_bot` repository is not modified. An already existing tag, GitHub UI change, email challenge variation, CAPTCHA, passkey prompt, or account-policy requirement can require adapting `portals/github.json` and revalidating the live flow. The dependent behavior on this live form still requires verification against the current authenticated UI.
+The live path is private profile → repository → releases → new release. The form contains tag, target branch, title, and notes. A **new, non-existing tag choice makes the target branch relevant**; use a unique tag in the input. Selecting that tag in the form does not create it on GitHub until publishing. The runner renders the Markdown preview and prints the page using Chromium. It never clicks Publish or Save draft. Your `shopping_bot` repository is not modified. A successful live preview run has been reported; the remaining real-account acceptance matrix is listed in [validation status](docs/VALIDATION.md). An already existing tag, GitHub UI change, email challenge variation, CAPTCHA, passkey prompt, or account-policy requirement can require adapting `portals/github.json` and revalidating the live flow.
+
+To execute the real-account acceptance matrix on Windows, use the PowerShell script below after `.env` is configured. It performs a fresh login, a reused-session run, corrupt-state recovery, and an alternate-input run. It stores its test session under `.state\acceptance\` and outputs manifests/PDFs under a new `runs\live-acceptance-*` folder; your regular `.state\github.json` is untouched. Add `-Headed` to watch the browser.
+
+```powershell
+.\scripts\test-live.ps1
+# or
+.\scripts\test-live.ps1 -Headed
+```
+
+## Local FIFO job API (extra credit)
+
+The optional API places a bounded queue in front of the same runner. It binds only to `127.0.0.1`, accepts only project-local JSON portal/input paths, requires a bearer token, and runs one job at a time so jobs cannot race over the API's saved browser session. It uses separate `.state\api-<portal>.json` state files from the CLI. No web framework or additional package is required. Start it in one PowerShell terminal:
+
+```powershell
+.\.venv\Scripts\python.exe -m automation api
+```
+
+The first start creates the private, Git-ignored `.state\api-token.json`. In a second terminal, submit and poll a job:
+
+```powershell
+$token = (Get-Content .\.state\api-token.json -Raw | ConvertFrom-Json).token
+$headers = @{ Authorization = "Bearer $token" }
+$body = @{ portal = "portals/github.json"; inputs = "examples/inputs.github.json"; headed = $true } | ConvertTo-Json
+$job = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8765/jobs -Headers $headers -ContentType "application/json" -Body $body
+do {
+    Start-Sleep -Seconds 1
+    $result = Invoke-RestMethod -Uri "http://127.0.0.1:8765/jobs/$($job.id)" -Headers $headers
+} while ($result.status -in @("queued", "running"))
+$result
+```
+
+`POST /jobs` returns a job ID, `GET /jobs/{id}` returns status and the eventual manifest path, and `GET /health` reports queue health. The pending queue is bounded (default 8; change with `--max-queued`); a full queue returns HTTP 429. Stop the service with Ctrl+C. Keep the token file private and do not bind the service to a LAN address.
 
 The default adapter requires an actual TOTP challenge. GitHub email verification commonly confirms a new device and is **not GitHub account-level 2FA**. Do not claim account-level 2FA based on an email device code. The optional email adapter fails if no email challenge appears. The native adapter stops on an unexpected Google SSO origin before filling credentials.
 
