@@ -173,10 +173,14 @@
       "target": {
         "key": "new-tag-name",
         "role": "textbox",
-        "name": "Tag",
-        "label": "Tag",
+        "name": "Tag *",
+        "label": "Tag *",
         "css": [
-          "input[name='tag_name']"
+          "[role='dialog'] input[type='text']",
+          "dialog input[type='text']",
+          "[aria-modal='true'] input[type='text']",
+          "input[name='tag_name']",
+          "input[name='tag']"
         ]
       }
     },

@@ -162,7 +162,7 @@ class ResolverAcceptance(unittest.IsolatedAsyncioTestCase):
         cases = [
             ("form.open-tag", '<button>Tag: Select tag</button>', "choose-tag"),
             ("form.create-tag-dialog", '<button>Create new tag</button>', "create-new-tag"),
-            ("form.tag", '<label for="tag">Tag</label><input id="tag">', "new-tag-name"),
+            ("form.tag", '<div role="dialog"><label for="tag">Tag *</label><input id="tag" type="text"></div>', "new-tag-name"),
             ("form.create-tag", '<button>Create</button>', "create-tag"),
         ]
         with tempfile.TemporaryDirectory() as directory:
