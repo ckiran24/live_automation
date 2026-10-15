@@ -92,6 +92,14 @@ class BrowserAcceptance(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(fixture.code_count - before, 2)
         self.assertEqual(runner.manifest["failure"]["error_type"], "AuthenticationFailure")
 
+    async def test_second_factor_auto_submit_does_not_require_verify_button(self):
+        self.fixture.auto_submit_code = True
+        success, runner = await self.run_portal("auto-submit")
+        self.assertTrue(success, runner.manifest.get("failure"))
+        attempts = runner.manifest["resolver_attempts"]
+        self.assertFalse(any(item["target"] == "verify" for item in attempts))
+        self.assertTrue((self.root / "auto-submit/documents/report.pdf").is_file())
+
     async def test_iframe_dependent_fields_changed_inputs_and_all_capture_methods(self):
         success, first = await self.run_portal("download")
         self.assertTrue(success)

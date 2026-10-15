@@ -153,12 +153,32 @@ class Runner:
                 self.redactor.add(code)
                 challenge = await self.resolver.resolve(self.page, self.portal.login.challenge)
                 await challenge.fill(code)
+                # Some portals submit a one-time code as soon as it is entered.
+                # Give that flow a brief chance to establish the session before
+                # requiring a submit control that may no longer exist.
+                challenge_deadline = time.monotonic() + 0.5
+                challenge_still_visible = True
+                while time.monotonic() < challenge_deadline:
+                    challenge_still_visible = await self.resolver.present(self.page, self.portal.login.challenge, 100)
+                    if not challenge_still_visible:
+                        break
+                    await asyncio.sleep(0.05)
+                if not challenge_still_visible and await self.wait_authenticated(timeout_seconds=2):
+                    return code, True
                 submit = await self.resolver.resolve(self.page, self.portal.login.submit)
                 await submit.click()
                 await self.page.wait_for_load_state("domcontentloaded")
-                return code
+                return code, False
 
-            code = await self.stage_run("login.second_factor", submit_code, retry_safe=False)
+            code, authenticated_after_fill = await self.stage_run(
+                "login.second_factor", submit_code, retry_safe=False
+            )
+            # GitHub may navigate directly to an authenticated page after accepting
+            # the code. Confirm that outcome before inspecting challenge-page text:
+            # stale/hidden login markup must not override a successful login.
+            if authenticated_after_fill or await self.authenticated():
+                await self.save_authenticated_state()
+                return
             # Never retry an ambiguous network failure here: only a clearly rejected
             # code receives the one permitted second attempt.
             if await self.resolver.present(self.page, self.portal.login.rejected, 1000):
@@ -170,12 +190,21 @@ class Runner:
                     resend = await self.resolver.resolve(self.page, self.portal.login.resend)
                     await resend.click()
                 continue
-            if await self.authenticated():
-                private_json(self.state, {"version": 1, "origin": self.portal.base_url,
-                                          "storage_state": await self.context.storage_state()})
-                return
             raise AuthenticationFailure("Authentication not confirmed; check account challenges")
         raise AuthenticationFailure("Authentication failed")
+
+    async def wait_authenticated(self, timeout_seconds=2):
+        deadline = time.monotonic() + timeout_seconds
+        while True:
+            if await self.authenticated():
+                return True
+            if time.monotonic() >= deadline:
+                return False
+            await asyncio.sleep(0.2)
+
+    async def save_authenticated_state(self):
+        private_json(self.state, {"version": 1, "origin": self.portal.base_url,
+                                  "storage_state": await self.context.storage_state()})
 
     def capture_path(self, filename):
         if not filename or Path(filename).name != filename or filename in (".", ".."):

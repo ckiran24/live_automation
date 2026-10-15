@@ -69,6 +69,7 @@ class FixturePortal:
         self.login_count = 0
         self.code_count = 0
         self.reject_codes = 0
+        self.auto_submit_code = False
         self.transient_documents = 0
         self.server = None
 
@@ -157,9 +158,12 @@ class FixturePortal:
 
             def challenge(self, rejected=False):
                 prefix = '<p role="alert">Incorrect authentication code</p>' if rejected else ""
+                auto_submit = ('<script>document.querySelector("input[name=code]").addEventListener('
+                               '"input", () => document.querySelector("form").requestSubmit());</script>'
+                               if fixture.auto_submit_code else "")
                 self.send(prefix + '''<form method="post" action="/two-factor">
                 <label>Authentication code<input name="code" autocomplete="one-time-code"></label>
-                <button>Verify</button></form>''')
+                <button>Verify</button></form>''' + auto_submit)
 
             def do_POST(self):
                 length = int(self.headers.get("Content-Length", "0"))
