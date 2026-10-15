@@ -146,10 +146,10 @@
       "target": {
         "key": "choose-tag",
         "role": "button",
-        "name": "Choose a tag",
-        "text": "Choose a tag",
+        "name": "Tag: Select tag",
+        "text": "Tag: Select tag",
         "css": [
-          "#tag-select-menu summary"
+          "button:has-text('Select tag')"
         ]
       }
     },
