@@ -268,7 +268,7 @@ At one hundred portals, I would first replace duplicated JSON with versioned por
 
 ## 15. Submission and review checklist
 
-The repository's tracked files are the code submission. Include source, tests, adapter/input JSON, scripts, README, validation record, and this guide with the separate CTO Q&A PDF. The `examples/output/` artifacts are synthetic local fixture results. If the evaluator expects real run artifacts, copy one reviewed successful live manifest and its PDF to `submission-artifacts/github-live/`; ignored `runs/` files are not pushed automatically.
+The tracked repository is the code submission: source, tests, adapters, inputs, scripts, README, validation record, and both PDFs. `examples/output/` contains synthetic fixture artifacts. For complete live evidence, copy the reviewed acceptance summary, four manifests, and fresh/alternate PDFs from ignored `runs/` to `submission-artifacts/github-live/`.
 
 Before handing it over:
 

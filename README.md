@@ -89,7 +89,7 @@ For one hundred portals, the first changes should be versioned portal adapters, 
 
 ## What to submit
 
-Submit the Git repository at `https://github.com/ckiran24/live_automation`, including the tracked source, portal and input specifications, tests, scripts, README, validation record, and the two study PDFs. The tracked `examples/output/` files come from the disposable local fixture and are clearly labeled as fixture output. For a strong live-demo hand-in, add one reviewed successful GitHub manifest and its generated PDF under a clearly named `submission-artifacts/github-live/` folder if the assignment expects run artifacts. Those files are currently in the ignored local `runs/` directory and will not be pushed automatically.
+Submit the Git repository at `https://github.com/ckiran24/live_automation`, including the tracked source, portal and input specifications, tests, scripts, README, validation record, and the two study PDFs. The tracked `examples/output/` files come from the disposable local fixture and are clearly labeled as fixture output. For a complete live-evidence hand-in, add the reviewed `acceptance-summary.json`, four case manifests, and the fresh/alternate PDFs under `submission-artifacts/github-live/`. Those files are currently in the ignored local `runs/` directory and will not be pushed automatically.
 
 Do not add `.env`, `.state/`, `.venv/`, or ignored `runs/` data. Live manifests and PDFs are on your computer and can contain account-related information; include one only if the evaluator requests it and you have reviewed it. The repository is already pushed to `main`; check `git status` before making your final submission.
 
