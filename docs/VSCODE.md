@@ -58,9 +58,9 @@ The Linux cloud run passed all nine tests. The Windows commands and debugger con
 
 ## Your real GitHub account
 
-Follow [GITHUB_SETUP.md](GITHUB_SETUP.md) to enable the selected native GitHub password/TOTP login. Copy `.env.example` to `.env` in the project root and fill only the required `PORTAL_USERNAME`, `PORTAL_PASSWORD`, and `PORTAL_TOTP_SECRET` values privately. The TOTP value is the existing Base32 enrollment seed, not the changing six-digit code. This file is excluded by `.gitignore`.
+Follow [GITHUB_SETUP.md](GITHUB_SETUP.md) to enable the selected native GitHub password/TOTP login. In the project root, run `Copy-Item .env.example .env` in PowerShell, then fill only the required `PORTAL_USERNAME`, `PORTAL_PASSWORD`, and `PORTAL_TOTP_SECRET` values privately. The CLI loads this file automatically and `.gitignore` excludes it. The TOTP value is the existing Base32 enrollment seed, not the changing six-digit code.
 
-Choose **GitHub preview (requires password and TOTP)** in **Run and Debug** and press **F5**. VS Code's debugger loads `.env` for this configuration. Running directly from a terminal still requires environment variables to be supplied separately; the application itself does not read `.env`.
+Run `.\.venv\Scripts\python.exe -m automation check-config` in PowerShell to check the required settings without showing their values. Then choose **GitHub preview (requires password and TOTP)** in **Run and Debug** and press **F5**, or run the command below in a terminal. Both CLI launches load the project-root `.env` automatically.
 
 The configured target is `ckiran24/shopping_bot`. The workflow fills an unpublished release preview and prints a PDF. The authenticated GitHub UI still requires live validation against your account; the local demo does not establish that the real portal works.
 

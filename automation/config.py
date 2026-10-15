@@ -36,6 +36,8 @@ def load_config(path: Path, inputs_path: Path):
                 raise FinalFailure(f"Missing {kind} value: {key}")
             result = str(source[key])
             if kind == "env":
+                if not result.strip():
+                    raise FinalFailure(f"Missing env value: {key}")
                 redactor.add(result)
             return result
 

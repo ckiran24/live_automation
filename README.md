@@ -32,7 +32,7 @@ Use a fresh demo output path each time. Existing output is preserved. The demo r
 
 ## Live GitHub run
 
-First follow [GitHub authentication setup](docs/GITHUB_SETUP.md) to establish a native password and authenticator/TOTP enrollment. Supply these three process environment variables through a password manager, a runtime that supports raw secure environment bindings, or a local ignored file. `.env.example` lists names only; the application **does not automatically load `.env`**. Do not put secret values in JSON, shell command arguments/history, screenshots, Git, or chat.
+First follow [GitHub authentication setup](docs/GITHUB_SETUP.md) to establish a native password and authenticator/TOTP enrollment. In PowerShell, copy `.env.example` to `.env` using `Copy-Item .env.example .env`, then enter the values in the new file. The CLI loads the project-root `.env` automatically without displaying its contents. Alternatively, supply process environment variables through a password manager or runtime. Do not put secret values in JSON, screenshots, Git, or chat.
 
 | Variable | Purpose |
 | --- | --- |
@@ -42,6 +42,14 @@ First follow [GitHub authentication setup](docs/GITHUB_SETUP.md) to establish a 
 | `BROWSER_EXECUTABLE` | Optional Chromium executable override |
 
 The TOTP seed must be available to the Python process. An HTTPS proxy substitution placeholder is not a usable authenticator seed. If your cloud settings only support destination-bound proxy secrets, run this workflow locally with your password manager rather than pasting credentials into chat.
+
+Check which required settings are present and whether the TOTP seed is valid without displaying any values:
+
+```powershell
+.\.venv\Scripts\python.exe -m automation check-config
+```
+
+On macOS/Linux use `.venv/bin/python -m automation check-config`.
 
 The optional `portals/github-email.json` adapter uses native GitHub password login followed by email device verification. It does not implement Google SSO. For that optional mode:
 

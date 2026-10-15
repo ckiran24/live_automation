@@ -35,13 +35,16 @@ class TOTPProvider:
     """RFC 6238 codes from an existing authenticator seed, never from chat."""
 
     def __init__(self, env_name: str, redactor: Redactor):
-        secret = os.environ.get(env_name)
+        secret = os.environ.get(env_name, "").strip()
         if not secret:
             raise FinalFailure(f"Missing environment variable: {env_name}")
-        self.totp = pyotp.TOTP(secret.replace(" ", ""))
+        secret = secret.replace(" ", "")
+        if not secret:
+            raise FinalFailure(f"Missing environment variable: {env_name}")
+        self.totp = pyotp.TOTP(secret)
         self.redactor = redactor
         self.redactor.add(secret)
-        self.redactor.add(secret.replace(" ", ""))
+        self.redactor.add(secret)
         try:
             self.totp.now()
         except Exception as exc:
