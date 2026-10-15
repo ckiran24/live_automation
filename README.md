@@ -1,4 +1,4 @@
-#Live-automation
+**##Live-automation**
 A single-process Python/Playwright CLI with automated email or TOTP codes, reusable browser state, semantic locator fallbacks, PDF/download capture, and redacted failure evidence.
 
 To run the downloaded project locally, follow [Download and run in VS Code](docs/VSCODE.md), including Windows and macOS/Linux commands and ready-to-use debugger configurations.
