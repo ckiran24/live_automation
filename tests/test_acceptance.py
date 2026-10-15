@@ -159,14 +159,21 @@ class BrowserAcceptance(unittest.IsolatedAsyncioTestCase):
 class ResolverAcceptance(unittest.IsolatedAsyncioTestCase):
     async def test_github_release_tag_dropdown_matches_current_ui(self):
         portal = json.loads(Path("portals/github.json").read_text())
-        tag_target = next(step["target"] for step in portal["steps"] if step["key"] == "form.open-tag")
+        cases = [
+            ("form.open-tag", '<button>Tag: Select tag</button>', "choose-tag"),
+            ("form.create-tag-dialog", '<button>Create new tag</button>', "create-new-tag"),
+            ("form.tag", '<label for="tag">Tag</label><input id="tag">', "new-tag-name"),
+            ("form.create-tag", '<button>Create</button>', "create-tag"),
+        ]
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            (root / "page.html").write_text('<button>Tag: Select tag</button>')
-            (root / "targets.json").write_text(json.dumps([tag_target]))
-            attempts = await check_html(root / "page.html", root / "targets.json")
-        self.assertIn({"target": "choose-tag", "strategy": "role_name", "frame": None,
-                       "outcome": "selected"}, attempts)
+            for key, html, target_key in cases:
+                target_spec = next(step["target"] for step in portal["steps"] if step["key"] == key)
+                (root / "page.html").write_text(html)
+                (root / "targets.json").write_text(json.dumps([target_spec]))
+                attempts = await check_html(root / "page.html", root / "targets.json")
+                self.assertTrue(any(item["target"] == target_key and item["outcome"] == "selected"
+                                    for item in attempts), key)
 
     async def test_all_offline_variants_and_strategy_order(self):
         from html import escape

@@ -154,28 +154,42 @@
       }
     },
     {
-      "key": "form.tag",
-      "kind": "fill",
-      "value": "{{inputs.tag}}",
+      "key": "form.create-tag-dialog",
+      "kind": "click",
       "target": {
-        "key": "tag-filter",
-        "role": "textbox",
-        "name": "Find or create a new tag",
-        "label": "Find or create a new tag",
+        "key": "create-new-tag",
+        "role": "button",
+        "name": "Create new tag",
+        "text": "Create new tag",
         "css": [
-          "#tag-filter-field"
+          "button:has-text('Create new tag')"
         ]
       }
     },
     {
-      "key": "form.create-tag-choice",
+      "key": "form.tag",
+      "kind": "fill",
+      "value": "{{inputs.tag}}",
+      "target": {
+        "key": "new-tag-name",
+        "role": "textbox",
+        "name": "Tag",
+        "label": "Tag",
+        "css": [
+          "input[name='tag_name']"
+        ]
+      }
+    },
+    {
+      "key": "form.create-tag",
       "kind": "click",
       "target": {
-        "key": "new-tag-choice",
-        "text": "Create new tag: {{inputs.tag}}",
-        "structure": "button[data-create-tag]",
+        "key": "create-tag",
+        "role": "button",
+        "name": "Create",
+        "text": "Create",
         "css": [
-          "#tag-select-menu button:has-text('Create new tag')"
+          "button:has-text('Create')"
         ]
       }
     },
