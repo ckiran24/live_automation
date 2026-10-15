@@ -9,7 +9,10 @@ from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
+from playwright.sync_api import expect, sync_playwright
+
 from automation.api import LocalJobService, api_token, make_server
+from automation.browser import launch_options
 from automation.demo import FixturePortal
 
 
@@ -112,6 +115,24 @@ class LocalAPIAcceptance(unittest.TestCase):
         self.assertEqual(health["status"], "ready")
         token_data = json.loads((self.root / ".state/api-token.json").read_text())
         self.assertEqual(token_data["token"], self.token)
+
+    def test_browser_ui_submits_and_tracks_a_job(self):
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch(**launch_options())
+            page = browser.new_page()
+            try:
+                response = page.goto(self.base + "/")
+                self.assertEqual(response.status, 200)
+                self.assertIn("default-src 'none'", response.headers["content-security-policy"])
+                page.locator("#token").fill(self.token)
+                page.locator("#portal").fill("portals/test.json")
+                page.locator("#inputs").fill("examples/input.json")
+                page.locator("#submit").click()
+                expect(page.locator("#job-status")).to_have_text("succeeded", timeout=3000)
+                expect(page.locator("#manifest")).to_have_text("runs/test/manifest.json")
+                self.assertIn("Run completed", page.locator("#message").inner_text())
+            finally:
+                browser.close()
 
     def test_queued_job_runs_fixture_portal_and_captures_pdf(self):
         with FixturePortal() as fixture, fixture.credentials():

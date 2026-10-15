@@ -14,3 +14,6 @@ dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 include = ["automation*"]
+
+[tool.setuptools.package-data]
+automation = ["ui.html", "ui.js", "ui.css"]

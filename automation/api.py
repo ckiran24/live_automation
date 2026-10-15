@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import asyncio
 import json
+import mimetypes
 import secrets
 import threading
 import uuid
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from importlib.resources import files
 from queue import Full, Queue
 from urllib.parse import urlsplit
 
@@ -17,6 +19,11 @@ from .security import private_json
 
 
 MAX_REQUEST_BYTES = 16 * 1024
+UI_ASSETS = {
+    "/": "ui.html",
+    "/ui.js": "ui.js",
+    "/ui.css": "ui.css",
+}
 
 
 def api_token(root: Path) -> str:
@@ -169,6 +176,18 @@ def make_server(service: LocalJobService, port=8765):
 
         def do_GET(self):
             path = urlsplit(self.path).path
+            if path in UI_ASSETS:
+                asset = files("automation").joinpath(UI_ASSETS[path]).read_bytes()
+                content_type = mimetypes.guess_type(UI_ASSETS[path])[0] or "application/octet-stream"
+                self.send_response(200)
+                self.send_header("Content-Type", f"{content_type}; charset=utf-8")
+                self.send_header("Content-Length", str(len(asset)))
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("X-Content-Type-Options", "nosniff")
+                self.send_header("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'")
+                self.end_headers()
+                self.wfile.write(asset)
+                return
             if path == "/health":
                 self.send_json(200, service.health())
                 return

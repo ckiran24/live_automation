@@ -1,5 +1,5 @@
 **##Live-automation**
-A Python/Playwright runner with automated email or TOTP codes, reusable browser state, semantic locator fallbacks, PDF/download capture, redacted failure evidence, and an authenticated localhost FIFO job API.
+A Python/Playwright runner with automated email or TOTP codes, reusable browser state, semantic locator fallbacks, PDF/download capture, redacted failure evidence, and an authenticated localhost job queue with a small browser UI.
 
 To run the downloaded project locally, follow [Download and run in VS Code](docs/VSCODE.md), including Windows and macOS/Linux commands and ready-to-use debugger configurations.
 
@@ -85,7 +85,7 @@ Run the same command again to reuse `.state/github.json`. To generate a differen
 
 `--headed` is available on a machine with a display. `--state` chooses a session path; `--output` chooses a fresh run directory. Exit codes: 0 success, 1 runtime failure with manifest/evidence, 2 invalid setup/configuration before execution, 130 interrupted. Concurrent invocations must use different state/output paths; the intended shape is one sequential CLI process.
 
-The live path is private profile → repository → releases → new release. The form contains tag, target branch, title, and notes. A **new, non-existing tag choice makes the target branch relevant**; use a unique tag in the input. Selecting that tag in the form does not create it on GitHub until publishing. The runner renders the Markdown preview and prints the page using Chromium. It never clicks Publish or Save draft. Your `shopping_bot` repository is not modified. A successful live preview run has been reported; the remaining real-account acceptance matrix is listed in [validation status](docs/VALIDATION.md). An already existing tag, GitHub UI change, email challenge variation, CAPTCHA, passkey prompt, or account-policy requirement can require adapting `portals/github.json` and revalidating the live flow.
+The live path is private profile → repository → releases → new release. The form contains tag, target branch, title, and notes. A **new, non-existing tag choice makes the target branch relevant**; use a unique tag in the input. Selecting that tag in the form does not create it on GitHub until publishing. The runner renders the Markdown preview and prints the page using Chromium. It never clicks Publish or Save draft. Your `shopping_bot` repository is not modified. The live fresh-login/reuse/corrupt-state/alternate-input matrix passed; see [validation status](docs/VALIDATION.md). An already existing tag, GitHub UI change, email challenge variation, CAPTCHA, passkey prompt, or account-policy requirement can require adapting `portals/github.json` and revalidating the live flow.
 
 To execute the real-account acceptance matrix on Windows, use the PowerShell script below after `.env` is configured. It performs a fresh login, a reused-session run, corrupt-state recovery, and an alternate-input run. It stores its test session under `.state\acceptance\` and outputs manifests/PDFs under a new `runs\live-acceptance-*` folder; your regular `.state\github.json` is untouched. Add `-Headed` to watch the browser.
 
@@ -97,13 +97,15 @@ To execute the real-account acceptance matrix on Windows, use the PowerShell scr
 
 ## Local FIFO job API (extra credit)
 
-The optional API places a bounded queue in front of the same runner. It binds only to `127.0.0.1`, accepts only project-local JSON portal/input paths, requires a bearer token, and runs one job at a time so jobs cannot race over the API's saved browser session. It uses separate `.state\api-<portal>.json` state files from the CLI. No web framework or additional package is required. Start it in one PowerShell terminal:
+The API places a bounded queue in front of the same runner. It binds only to `127.0.0.1`, accepts only project-local JSON portal/input paths, requires a bearer token, and runs one job at a time so jobs cannot race over the API's saved browser session. It uses separate `.state\api-<portal>.json` state files from the CLI. No web framework or additional package is required. Start it in one PowerShell terminal:
 
 ```powershell
 .\.venv\Scripts\python.exe -m automation api
 ```
 
-The first start creates the private, Git-ignored `.state\api-token.json`. In a second terminal, submit and poll a job:
+The first start creates the private, Git-ignored `.state\api-token.json`. Open `http://127.0.0.1:8765/` in your browser, copy the token value from `.state\api-token.json` into the password field, choose project-relative portal/input JSON files, and queue a run. The UI polls until completion and displays the job ID and manifest path. The token is held only in the page's memory and is not stored in browser storage. The UI is served by the same loopback-only process; do not expose the port to a network or enter the token into another site.
+
+You can also submit and poll a job from a second PowerShell terminal:
 
 ```powershell
 $token = (Get-Content .\.state\api-token.json -Raw | ConvertFrom-Json).token
@@ -131,7 +133,9 @@ The default adapter requires an actual TOTP challenge. GitHub email verification
 6. The sequential action engine visits pages, fills/selects fields, waits for dependent controls, and captures a download, an HTML popup printed to PDF, or the current page printed to PDF. Captures have explicit safe basenames, non-empty content, PDF magic validation, byte counts, and SHA-256 hashes. It does not use a server-provided filename as a filesystem path. A popup showing a browser PDF viewer needs a native-download adapter; `popup_pdf` is for HTML print views.
 7. `manifest.json` records redacted business inputs, main-page/popup visits, elapsed time per stage and attempt, retry backoff, whether the session was reused, every resolver strategy attempted, and captured-file metadata. Configuration failures before a browser exists return a safe diagnostic class; browser-stage failures also produce a failure bundle.
 
-### How the email code arrives and what happens when it is wrong
+### How the second-factor code arrives and what happens when it is wrong
+
+For authenticator login, `TOTPProvider` generates a time-based code locally from the Base32 enrollment seed in `PORTAL_TOTP_SECRET`; no message is sent or polled. For email device verification, `IMAPProvider` waits for GitHub's new-device email and obtains the code from the configured mailbox. `portals/github.json` selects TOTP, while `portals/github-email.json` selects IMAP.
 
 `otp.py` defines the interface `async def get_code(challenge) -> str`. `IMAPProvider` runs blocking TLS IMAP work using `asyncio.to_thread`, polls only the chosen mailbox in read-only mode, searches the challenge date, and fetches the newest 50 matching-day messages with `BODY.PEEK[]` (does not mark them read). It accepts a message only when sender and subject match and its Date is within the challenge window (30 seconds of clock skew). Plain text is preferred over HTML. Exactly one distinct code must match the regex; ambiguous messages are ignored. Already-consumed message UIDs and the previous rejected code are excluded.
 
@@ -143,11 +147,11 @@ A clearly rejected code gets exactly **one** retry. If the adapter defines a res
 
 `resolver.py` tries these strategies in order, across **all current frames**, including nested iframes:
 
-1. Exact accessible role and name: closest to how a user identifies the control.
-2. Associated label: survives layout, wrappers, and class changes.
-3. Exact visible text, then nearby text in a label/fieldset/field block.
-4. Structural relationship supplied by the portal adapter.
-5. ID/class CSS alternatives as the final fallback.
+1. Exact accessible role and name: matches user-facing semantics and is usually stable across styling changes.
+2. Associated label: uses the form's own meaning and survives layout, wrappers, sibling reordering, and class changes.
+3. Exact visible text, then nearby text in a label/fieldset/field block: supports controls whose accessible name is missing while staying tied to nearby wording.
+4. Structural relationship supplied by the portal adapter: handles unusual markup when semantic hooks are absent.
+5. ID/class CSS alternatives as the final fallback: useful for portal-specific controls, but most likely to break during redesign.
 
 Each target must describe at least two strategies. The resolver records target key, strategy, frame index, and match/miss/selected/ambiguous outcome. It waits within a bounded deadline for asynchronously loaded controls and frames. Multiple visible matches fail explicitly; it never chooses `.first` arbitrarily. A semantic match anywhere in the frame tree wins before a weaker main-frame CSS match.
 
@@ -163,7 +167,7 @@ The mutation command renames classes, reverses field siblings, adds a wrapper an
 
 ### Quirks, retries, and evidence
 
-The fixture exercises iframe traversal, dependent category→order selection, a native download, a new-tab HTML print view, and current-page print-to-PDF. The GitHub adapter uses its dependent tag→target-branch form and print-to-PDF. A live run has completed successfully with a reused session and captured the release preview PDF; see [validation status](docs/VALIDATION.md) for the remaining live acceptance checks.
+The fixture exercises iframe traversal, dependent category→order selection, a native download, a new-tab HTML print view, current-page print-to-PDF, and a broken step that produces sanitized evidence. The GitHub adapter handles dependent tag→target-branch selection, a create-new-tag dialog, a Markdown release preview, and print-to-PDF. The live acceptance matrix has passed for fresh login, reuse, corrupted-state recovery, and alternate inputs; see [validation status](docs/VALIDATION.md).
 
 Transient navigation resets, connection/timeouts, HTTP 429/5xx, temporarily missing locators, and dropped IMAP connections may retry. A safe action gets at most `attempts` tries (default 3, maximum 5), with exponential backoff. Fill/select/wait are idempotent; safe navigation opts in. Clicks, downloads, OTP submissions, and other potentially repeated side effects **do not retry automatically** unless the adapter explicitly marks them safe. Authentication rejection, ambiguous targets, invalid inputs/configuration, HTTP 4xx other than 429, unsupported challenges, invalid documents, and exhausted retries are final. There is no anti-bot bypass; use another permitted portal if GitHub blocks automation.
 
@@ -177,6 +181,6 @@ Keep the runner and code-provider interface, but replace large hand-written JSON
 
 ## Submission artifacts and remaining validation
 
-`examples/output/` contains genuine **local fixture** outputs: successful download/PDF, first/reused-session manifests, a deliberately broken-step failure bundle, and an acceptance summary. A user-reported successful live GitHub run is recorded in `docs/VALIDATION.md`; its private run directory is local to the user's Windows machine and has not been copied into this repository.
+`examples/output/` contains genuine **local fixture** outputs: successful download/PDF, first/reused-session manifests, a deliberately broken-step failure bundle, and an acceptance summary. The live GitHub acceptance run passed on the user's Windows machine; its private manifests/PDFs remain on that machine and should be reviewed before submission.
 
-Before submission, complete the live fresh-login, stale-session recovery, and changed-input checks listed in `docs/VALIDATION.md`. Include the reviewed successful live manifest/PDF and one sanitized failure bundle in the submission artifacts. Do not submit `.env`, `.state/`, or unreviewed account data. The local fixture cannot substitute for missing live checks. The submission repository is `https://github.com/ckiran24/live_automation`.
+Before submission, include a reviewed live success manifest/PDF and a sanitized failure bundle if requested by the evaluator. Do not submit `.env`, `.state/`, or unreviewed account data. The local fixture and offline mutated-HTML exercise are distinct from the real-account run. The submission repository is `https://github.com/ckiran24/live_automation`.

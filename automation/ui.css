@@ -1,0 +1,30 @@
+:root { color-scheme: light; font-family: system-ui, -apple-system, Segoe UI, sans-serif; color: #172235; background: #f2f5f9; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.shell { width: min(760px, calc(100% - 32px)); margin: 42px auto; }
+header { margin: 0 0 24px; }
+.eyebrow { margin: 0 0 8px; color: #315e9e; font-size: .75rem; font-weight: 800; letter-spacing: .12em; }
+h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); letter-spacing: -.04em; }
+.intro { margin: 10px 0 0; color: #526175; }
+.card { background: white; border: 1px solid #d8e0ea; border-radius: 14px; padding: 24px; margin: 16px 0; box-shadow: 0 8px 26px #1d33500b; }
+h2 { margin: 0 0 18px; font-size: 1.1rem; }
+form { display: grid; gap: 9px; }
+label { font-weight: 650; margin-top: 5px; }
+input:not([type=checkbox]) { width: 100%; border: 1px solid #b9c6d5; border-radius: 8px; min-height: 42px; padding: 9px 11px; font: inherit; }
+input:focus { outline: 3px solid #b8d2fb; border-color: #356fc4; }
+.hint { margin: -5px 0 4px; color: #5d6b7d; font-size: .88rem; }
+code { background: #f0f3f7; padding: 2px 4px; border-radius: 4px; }
+.check { display: flex; align-items: center; gap: 9px; margin: 9px 0; font-weight: 500; }
+button { justify-self: start; border: 0; border-radius: 8px; background: #175fc1; color: white; padding: 11px 18px; font: inherit; font-weight: 700; cursor: pointer; }
+button:hover { background: #104b9a; }
+button:disabled { opacity: .6; cursor: wait; }
+.notice { margin: 18px 0 0; border-left: 3px solid #d79525; padding-left: 11px; color: #596577; font-size: .9rem; }
+.status-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.status-line h2 { margin: 0; }
+.pill { padding: 4px 9px; background: #e8edf4; border-radius: 20px; color: #34445a; font-size: .82rem; }
+#message { color: #536176; }
+dl { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 8px 14px; margin: 18px 0 0; font-size: .9rem; }
+dt { color: #657286; }
+dd { margin: 0; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+footer { text-align: center; color: #67758a; font-size: .82rem; padding: 12px; }
+@media (max-width: 520px) { .shell { margin: 22px auto; } .card { padding: 18px; } dl { grid-template-columns: 1fr; gap: 4px; } dd { margin-bottom: 8px; } }

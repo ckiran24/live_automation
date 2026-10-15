@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local automation runner</title>
+  <link rel="stylesheet" href="/ui.css">
+  <script src="/ui.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <p class="eyebrow">LOCAL ONLY</p>
+      <h1>Automation runner</h1>
+      <p class="intro">Queue a portal run and follow its status. Jobs run one at a time in this process.</p>
+    </header>
+
+    <section class="card" aria-labelledby="job-heading">
+      <h2 id="job-heading">New job</h2>
+      <form id="job-form">
+        <label for="token">Local API token</label>
+        <input id="token" name="token" type="password" autocomplete="off" required>
+        <p class="hint">Read it from <code>.state/api-token.json</code>. It stays in this page and is not saved.</p>
+
+        <label for="portal">Portal JSON path</label>
+        <input id="portal" name="portal" value="portals/github.json" required>
+
+        <label for="inputs">Input JSON path</label>
+        <input id="inputs" name="inputs" value="examples/inputs.github.json" required>
+
+        <label class="check"><input id="headed" name="headed" type="checkbox"> Show the browser window</label>
+        <button id="submit" type="submit">Queue run</button>
+      </form>
+      <p class="notice">Use only trusted project JSON files. A live run can access your portal account; this UI does not publish GitHub releases.</p>
+    </section>
+
+    <section class="card result" aria-live="polite" aria-labelledby="status-heading">
+      <div class="status-line">
+        <h2 id="status-heading">Job status</h2>
+        <span id="health" class="pill">Checking API…</span>
+      </div>
+      <p id="message">No job submitted.</p>
+      <dl id="details" hidden>
+        <dt>Job ID</dt><dd id="job-id"></dd>
+        <dt>Status</dt><dd id="job-status"></dd>
+        <dt>Manifest</dt><dd id="manifest"></dd>
+        <dt>Session reused</dt><dd id="reused"></dd>
+      </dl>
+    </section>
+    <footer>Bound to 127.0.0.1 · Bearer-authenticated queue · No credentials or codes are shown here</footer>
+  </main>
+</body>
+</html>
