@@ -1,5 +1,4 @@
-# Bravebird automation assignment
-
+#Live-automation
 A single-process Python/Playwright CLI with automated email or TOTP codes, reusable browser state, semantic locator fallbacks, PDF/download capture, and redacted failure evidence.
 
 To run the downloaded project locally, follow [Download and run in VS Code](docs/VSCODE.md), including Windows and macOS/Linux commands and ready-to-use debugger configurations.
@@ -11,8 +10,6 @@ git clone https://github.com/ckiran24/live_automation.git
 cd live_automation
 code .
 ```
-
-**Current status:** the browser acceptance portal is implemented and tested locally. The selected live target is your `ckiran24/shopping_bot` GitHub repository. You chose to switch from **Continue with Google** to native GitHub password-and-TOTP for this assignment; that is the default adapter. The authenticated login and release form have **not** been validated against your account because native authentication enrollment and secure credentials are still pending. Local fixture output does not establish a successful real-portal submission. GitHub's public release page currently has no releases, so the configured live workflow prints an unpublished release preview rather than downloading a release asset.
 
 ## One-command setup
 
