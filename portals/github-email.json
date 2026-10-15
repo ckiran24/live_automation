@@ -1,0 +1,267 @@
+{
+  "name": "github-shopping-bot",
+  "base_url": "https://github.com",
+  "timeout_ms": 12000,
+  "session": {
+    "path": "/settings/profile",
+    "markers": [
+      {
+        "key": "private-profile-heading",
+        "role": "heading",
+        "name": "Public profile",
+        "text": "Public profile",
+        "css": [
+          "#public-profile-heading"
+        ]
+      },
+      {
+        "key": "private-profile-save",
+        "role": "button",
+        "name": "Update profile",
+        "text": "Update profile",
+        "css": [
+          "form[action='/users'] button[type=submit]"
+        ]
+      }
+    ],
+    "identity": {
+      "target": {
+        "key": "own-account-profile",
+        "role": "link",
+        "name": "Go to your personal profile",
+        "text": "Go to your personal profile",
+        "structure": "a[href=\"/{{env.PORTAL_USERNAME}}\"]"
+      },
+      "attribute": "href",
+      "equals": "/{{env.PORTAL_USERNAME}}"
+    }
+  },
+  "login": {
+    "path": "/login",
+    "totp_env": "PORTAL_TOTP_SECRET",
+    "steps": [
+      {
+        "key": "username",
+        "kind": "fill",
+        "value": "{{env.PORTAL_USERNAME}}",
+        "target": {
+          "key": "username",
+          "role": "textbox",
+          "name": "Username or email address",
+          "label": "Username or email address",
+          "css": [
+            "#login_field"
+          ]
+        }
+      },
+      {
+        "key": "password",
+        "kind": "fill",
+        "value": "{{env.PORTAL_PASSWORD}}",
+        "target": {
+          "key": "password",
+          "label": "Password",
+          "structure": "input[type=password]",
+          "css": [
+            "#password"
+          ]
+        }
+      },
+      {
+        "key": "credentials",
+        "kind": "click",
+        "target": {
+          "key": "sign-in",
+          "role": "button",
+          "name": "Sign in",
+          "text": "Sign in",
+          "css": [
+            "input[name=commit]"
+          ]
+        }
+      }
+    ],
+    "challenge": {
+      "key": "email-code",
+      "label": "Verification code",
+      "structure": "input[autocomplete=one-time-code]",
+      "css": [
+        "#otp",
+        "input[name=otp]",
+        "input[name=code]"
+      ]
+    },
+    "submit": {
+      "key": "verify-email",
+      "role": "button",
+      "name": "Verify",
+      "text": "Verify",
+      "structure": "form[action*=verified-device] button[type=submit]"
+    },
+    "rejected": {
+      "key": "wrong-email-code",
+      "text": "Incorrect verification code.",
+      "structure": ".flash-error:has-text(\"code\")",
+      "css": [
+        "[role=alert]:has-text(\"incorrect\")"
+      ]
+    },
+    "provider": "imap",
+    "resend": {
+      "key": "resend-email",
+      "role": "button",
+      "name": "Resend verification email",
+      "text": "Resend verification email",
+      "structure": "form[action*=resend] button[type=submit]"
+    }
+  },
+  "steps": [
+    {
+      "key": "navigate.repository",
+      "kind": "goto",
+      "value": "/{{inputs.owner}}/{{inputs.repository}}",
+      "retry_safe": true
+    },
+    {
+      "key": "navigate.releases",
+      "kind": "click",
+      "retry_safe": true,
+      "target": {
+        "key": "releases",
+        "role": "link",
+        "name": "Releases",
+        "text": "Releases",
+        "structure": "a[href='/{{inputs.owner}}/{{inputs.repository}}/releases']"
+      }
+    },
+    {
+      "key": "navigate.new-release",
+      "kind": "click",
+      "retry_safe": true,
+      "target": {
+        "key": "new-release",
+        "role": "link",
+        "name": "Create a new release",
+        "text": "Create a new release",
+        "structure": "a[href='/{{inputs.owner}}/{{inputs.repository}}/releases/new']"
+      }
+    },
+    {
+      "key": "form.open-tag",
+      "kind": "click",
+      "target": {
+        "key": "choose-tag",
+        "role": "button",
+        "name": "Choose a tag",
+        "text": "Choose a tag",
+        "css": [
+          "#tag-select-menu summary"
+        ]
+      }
+    },
+    {
+      "key": "form.tag",
+      "kind": "fill",
+      "value": "{{inputs.tag}}",
+      "target": {
+        "key": "tag-filter",
+        "role": "textbox",
+        "name": "Find or create a new tag",
+        "label": "Find or create a new tag",
+        "css": [
+          "#tag-filter-field"
+        ]
+      }
+    },
+    {
+      "key": "form.create-tag-choice",
+      "kind": "click",
+      "target": {
+        "key": "new-tag-choice",
+        "text": "Create new tag: {{inputs.tag}}",
+        "structure": "button[data-create-tag]",
+        "css": [
+          "#tag-select-menu button:has-text('Create new tag')"
+        ]
+      }
+    },
+    {
+      "key": "form.open-branch",
+      "kind": "click",
+      "target": {
+        "key": "target-branch",
+        "role": "button",
+        "name": "Target: {{inputs.branch}}",
+        "text": "Target: {{inputs.branch}}",
+        "css": [
+          "#target-commitish-select-menu summary"
+        ]
+      }
+    },
+    {
+      "key": "form.choose-branch",
+      "kind": "click",
+      "target": {
+        "key": "branch-choice",
+        "role": "menuitemradio",
+        "name": "{{inputs.branch}}",
+        "structure": "#target-commitish-select-menu [data-name='{{inputs.branch}}']",
+        "css": [
+          "#target-commitish-select-menu .select-menu-item:has-text('{{inputs.branch}}')"
+        ]
+      }
+    },
+    {
+      "key": "form.title",
+      "kind": "fill",
+      "value": "{{inputs.title}}",
+      "target": {
+        "key": "release-title",
+        "role": "textbox",
+        "name": "Release title",
+        "label": "Release title",
+        "css": [
+          "#release_name"
+        ]
+      }
+    },
+    {
+      "key": "form.notes",
+      "kind": "fill",
+      "value": "{{inputs.notes}}",
+      "target": {
+        "key": "release-notes",
+        "role": "textbox",
+        "name": "Describe this release",
+        "label": "Describe this release",
+        "css": [
+          "#release_body"
+        ]
+      }
+    },
+    {
+      "key": "form.preview",
+      "kind": "click",
+      "target": {
+        "key": "preview",
+        "role": "tab",
+        "name": "Preview",
+        "text": "Preview",
+        "css": [
+          "button[data-tab-item=preview]"
+        ]
+      }
+    },
+    {
+      "key": "capture.preview",
+      "kind": "print_pdf",
+      "filename": "{{inputs.filename}}"
+    }
+  ],
+  "sensitive_inputs": [
+    "owner",
+    "account_id",
+    "email",
+    "phone"
+  ]
+}

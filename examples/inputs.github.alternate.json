@@ -1,0 +1,9 @@
+{
+  "owner": "ckiran24",
+  "repository": "shopping_bot",
+  "tag": "assignment-preview-2026-10-16",
+  "branch": "main",
+  "title": "Shopping Bot second automation preview",
+  "notes": "A different input JSON produces a different preview document without a code change.",
+  "filename": "shopping-bot-second-preview.pdf"
+}

@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "run_id": "fb0fd3ce016b49daace29415fe474b3d",
+  "started_at": "2026-10-15T07:36:08.318065+00:00",
+  "portal": "local-acceptance-fixture",
+  "inputs": {
+    "category": "Devices",
+    "order": "Device B",
+    "date": "2026-10-16"
+  },
+  "status": "success",
+  "session": {
+    "state": "loaded",
+    "reused": true,
+    "full_login": false
+  },
+  "pages_visited": [
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "session.validate",
+      "elapsed_ms": 1492.87
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "navigate.start",
+      "elapsed_ms": 1892.81
+    },
+    {
+      "url": "http://127.0.0.1:42403/workspace",
+      "stage": "workspace",
+      "elapsed_ms": 2058.65
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 2113.06
+    },
+    {
+      "url": "http://127.0.0.1:42403/reports",
+      "stage": "reports",
+      "elapsed_ms": 2203.15
+    },
+    {
+      "url": "http://127.0.0.1:42403/result?[REDACTED_QUERY]",
+      "stage": "generate",
+      "elapsed_ms": 2640.63
+    }
+  ],
+  "stages": [
+    {
+      "key": "session.validate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 528.9
+    },
+    {
+      "key": "navigate.start",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 35.97
+    },
+    {
+      "key": "workspace",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 183.78
+    },
+    {
+      "key": "documents",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 34.48
+    },
+    {
+      "key": "reports",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 122.47
+    },
+    {
+      "key": "category",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 118.56
+    },
+    {
+      "key": "order-enabled",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 32.73
+    },
+    {
+      "key": "order",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 12.98
+    },
+    {
+      "key": "date",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 46.06
+    },
+    {
+      "key": "generate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 335.02
+    },
+    {
+      "key": "capture",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 68.49
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    }
+  ],
+  "captured_files": [
+    {
+      "path": "documents/report.pdf",
+      "method": "native_download",
+      "bytes": 606,
+      "sha256": "7f6ad2cf53913dd62ecd382661a7896e1a32d642e85bd544660770c8edd71fef"
+    }
+  ],
+  "duration_ms": 3003.04
+}

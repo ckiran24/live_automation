@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "run_id": "341daffd7b2348809fa7b615d0b1ac2d",
+  "started_at": "2026-10-15T07:36:20.383798+00:00",
+  "portal": "local-acceptance-fixture",
+  "inputs": {
+    "category": "Books",
+    "order": "Book A",
+    "date": "2026-10-15"
+  },
+  "status": "success",
+  "session": {
+    "state": "loaded",
+    "reused": true,
+    "full_login": false
+  },
+  "pages_visited": [
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "session.validate",
+      "elapsed_ms": 1355.43
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "navigate.start",
+      "elapsed_ms": 1805.12
+    },
+    {
+      "url": "http://127.0.0.1:42403/workspace",
+      "stage": "workspace",
+      "elapsed_ms": 1993.7
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 2084.06
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 2192.75
+    },
+    {
+      "url": "http://127.0.0.1:42403/reports",
+      "stage": "reports",
+      "elapsed_ms": 2338.66
+    },
+    {
+      "url": "http://127.0.0.1:42403/result?[REDACTED_QUERY]",
+      "stage": "generate",
+      "elapsed_ms": 2652.44
+    }
+  ],
+  "stages": [
+    {
+      "key": "session.validate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 405.83
+    },
+    {
+      "key": "navigate.start",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 163.85
+    },
+    {
+      "key": "workspace",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 231.0
+    },
+    {
+      "key": "documents",
+      "attempt": 1,
+      "status": "retry",
+      "error_type": "RetryableFailure",
+      "retryable": true,
+      "backoff_ms": 50.0,
+      "duration_ms": 112.15
+    },
+    {
+      "key": "documents",
+      "attempt": 2,
+      "status": "passed",
+      "duration_ms": 61.88
+    },
+    {
+      "key": "reports",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 135.96
+    },
+    {
+      "key": "category",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 83.12
+    },
+    {
+      "key": "order-enabled",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 49.21
+    },
+    {
+      "key": "order",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 24.54
+    },
+    {
+      "key": "date",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 19.6
+    },
+    {
+      "key": "generate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 167.53
+    },
+    {
+      "key": "capture",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 111.44
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    }
+  ],
+  "captured_files": [
+    {
+      "path": "documents/report.pdf",
+      "method": "native_download",
+      "bytes": 602,
+      "sha256": "1e348a3cea063625958597e67174cff8cc8bb7e9cf1bc5b36bb25beb65c78e1b"
+    }
+  ],
+  "duration_ms": 2933.9
+}

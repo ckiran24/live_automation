@@ -1,0 +1,97 @@
+{
+  "source": "local fixture, not a real GitHub run",
+  "passed": true,
+  "changed_input_changed_document": true,
+  "results": [
+    {
+      "scenario": "01-first-login",
+      "success": true,
+      "session": {
+        "state": "missing",
+        "reused": false,
+        "full_login": true
+      },
+      "duration_ms": 4134.82
+    },
+    {
+      "scenario": "02-reuse",
+      "success": true,
+      "session": {
+        "state": "loaded",
+        "reused": true,
+        "full_login": false
+      },
+      "duration_ms": 2721.68
+    },
+    {
+      "scenario": "03-corrupt-state",
+      "success": true,
+      "session": {
+        "state": "corrupt",
+        "reused": false,
+        "full_login": true
+      },
+      "duration_ms": 4040.36
+    },
+    {
+      "scenario": "04-server-expired",
+      "success": true,
+      "session": {
+        "state": "stale",
+        "reused": false,
+        "full_login": true
+      },
+      "duration_ms": 4698.52
+    },
+    {
+      "scenario": "05-changed-input",
+      "success": true,
+      "session": {
+        "state": "loaded",
+        "reused": true,
+        "full_login": false
+      },
+      "duration_ms": 3003.04
+    },
+    {
+      "scenario": "06-intentional-failure",
+      "success": false,
+      "session": {
+        "state": "loaded",
+        "reused": true,
+        "full_login": false
+      },
+      "duration_ms": 4025.55
+    },
+    {
+      "scenario": "07-popup",
+      "success": true,
+      "session": {
+        "state": "loaded",
+        "reused": true,
+        "full_login": false
+      },
+      "duration_ms": 1834.7
+    },
+    {
+      "scenario": "08-print",
+      "success": true,
+      "session": {
+        "state": "loaded",
+        "reused": true,
+        "full_login": false
+      },
+      "duration_ms": 3183.87
+    },
+    {
+      "scenario": "09-transient-retry",
+      "success": true,
+      "session": {
+        "state": "loaded",
+        "reused": true,
+        "full_login": false
+      },
+      "duration_ms": 2933.9
+    }
+  ]
+}

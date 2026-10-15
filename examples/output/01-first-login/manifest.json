@@ -1,0 +1,455 @@
+{
+  "schema_version": 1,
+  "run_id": "24c9d69b823f474593f927de42d32803",
+  "started_at": "2026-10-15T07:35:52.694412+00:00",
+  "portal": "local-acceptance-fixture",
+  "inputs": {
+    "category": "Books",
+    "order": "Book A",
+    "date": "2026-10-15"
+  },
+  "status": "success",
+  "session": {
+    "state": "missing",
+    "reused": false,
+    "full_login": true
+  },
+  "pages_visited": [
+    {
+      "url": "http://127.0.0.1:42403/login",
+      "stage": "login.open",
+      "elapsed_ms": 1018.9
+    },
+    {
+      "url": "http://127.0.0.1:42403/two-factor",
+      "stage": "login.credentials",
+      "elapsed_ms": 1568.92
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "login.second_factor",
+      "elapsed_ms": 1830.72
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "login.second_factor",
+      "elapsed_ms": 2992.27
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "navigate.start",
+      "elapsed_ms": 3084.05
+    },
+    {
+      "url": "http://127.0.0.1:42403/workspace",
+      "stage": "workspace",
+      "elapsed_ms": 3234.28
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 3279.8
+    },
+    {
+      "url": "http://127.0.0.1:42403/reports",
+      "stage": "reports",
+      "elapsed_ms": 3436.18
+    },
+    {
+      "url": "http://127.0.0.1:42403/result?[REDACTED_QUERY]",
+      "stage": "generate",
+      "elapsed_ms": 3755.29
+    }
+  ],
+  "stages": [
+    {
+      "key": "login.open",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 74.87
+    },
+    {
+      "key": "login.username",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 336.02
+    },
+    {
+      "key": "login.password",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 92.57
+    },
+    {
+      "key": "login.credentials",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 132.71
+    },
+    {
+      "key": "login.second_factor",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 209.26
+    },
+    {
+      "key": "login",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 2103.24
+    },
+    {
+      "key": "navigate.start",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 42.54
+    },
+    {
+      "key": "workspace",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 133.4
+    },
+    {
+      "key": "documents",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 44.78
+    },
+    {
+      "key": "reports",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 178.78
+    },
+    {
+      "key": "category",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 76.23
+    },
+    {
+      "key": "order-enabled",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 38.26
+    },
+    {
+      "key": "order",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 16.45
+    },
+    {
+      "key": "date",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 14.21
+    },
+    {
+      "key": "generate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 181.1
+    },
+    {
+      "key": "capture",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 158.08
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "username",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "username",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "password",
+      "strategy": "label",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "password",
+      "strategy": "label",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-in",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-in",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "verify",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "verify",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    }
+  ],
+  "captured_files": [
+    {
+      "path": "documents/report.pdf",
+      "method": "native_download",
+      "bytes": 602,
+      "sha256": "1e348a3cea063625958597e67174cff8cc8bb7e9cf1bc5b36bb25beb65c78e1b"
+    }
+  ],
+  "duration_ms": 4134.82
+}

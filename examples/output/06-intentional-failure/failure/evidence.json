@@ -1,0 +1,332 @@
+{
+  "stage": "capture",
+  "error_type": "LocatorUnavailable",
+  "message": "Automation failed; inspect the stage and resolver attempts.",
+  "url": "http://127.0.0.1:42403/[REDACTED_PATH]",
+  "console": [
+    {
+      "type": "error",
+      "message": "[REDACTED_BROWSER_MESSAGE]"
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    }
+  ]
+}

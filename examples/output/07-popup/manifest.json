@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "run_id": "898a0cc1669e49af9528ffd48a5f1dde",
+  "started_at": "2026-10-15T07:36:15.354763+00:00",
+  "portal": "local-acceptance-fixture",
+  "inputs": {
+    "category": "Books",
+    "order": "Book A",
+    "date": "2026-10-15"
+  },
+  "status": "success",
+  "session": {
+    "state": "loaded",
+    "reused": true,
+    "full_login": false
+  },
+  "pages_visited": [
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "session.validate",
+      "elapsed_ms": 824.4
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "navigate.start",
+      "elapsed_ms": 971.37
+    },
+    {
+      "url": "http://127.0.0.1:42403/workspace",
+      "stage": "workspace",
+      "elapsed_ms": 1069.02
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 1104.32
+    },
+    {
+      "url": "http://127.0.0.1:42403/reports",
+      "stage": "reports",
+      "elapsed_ms": 1180.73
+    },
+    {
+      "url": "http://127.0.0.1:42403/result?[REDACTED_QUERY]",
+      "stage": "generate",
+      "elapsed_ms": 1420.08
+    }
+  ],
+  "stages": [
+    {
+      "key": "session.validate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 232.09
+    },
+    {
+      "key": "navigate.start",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 24.13
+    },
+    {
+      "key": "workspace",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 104.99
+    },
+    {
+      "key": "documents",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 28.71
+    },
+    {
+      "key": "reports",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 93.05
+    },
+    {
+      "key": "category",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 67.29
+    },
+    {
+      "key": "order-enabled",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 39.77
+    },
+    {
+      "key": "order",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 15.75
+    },
+    {
+      "key": "date",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 15.82
+    },
+    {
+      "key": "generate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 86.49
+    },
+    {
+      "key": "capture",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 173.28
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    }
+  ],
+  "captured_files": [
+    {
+      "path": "documents/report.pdf",
+      "method": "popup_print_pdf",
+      "bytes": 13914,
+      "sha256": "3682f85a637e1ecb92cfc1710d227bc145b2f362a54ba30d4362baee5bca2bb0"
+    }
+  ],
+  "duration_ms": 1834.7
+}

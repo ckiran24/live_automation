@@ -1,0 +1,515 @@
+{
+  "schema_version": 1,
+  "run_id": "9b698c26b14e403f9afb647ccbd80943",
+  "started_at": "2026-10-15T07:35:59.564911+00:00",
+  "portal": "local-acceptance-fixture",
+  "inputs": {
+    "category": "Books",
+    "order": "Book A",
+    "date": "2026-10-15"
+  },
+  "status": "success",
+  "session": {
+    "state": "corrupt",
+    "reused": false,
+    "full_login": true
+  },
+  "pages_visited": [
+    {
+      "url": "http://127.0.0.1:42403/login",
+      "stage": "login.open",
+      "elapsed_ms": 1448.27
+    },
+    {
+      "url": "http://127.0.0.1:42403/two-factor",
+      "stage": "login.credentials",
+      "elapsed_ms": 1783.58
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "login.second_factor",
+      "elapsed_ms": 1950.15
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "login.second_factor",
+      "elapsed_ms": 3117.04
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "navigate.start",
+      "elapsed_ms": 3235.51
+    },
+    {
+      "url": "http://127.0.0.1:42403/workspace",
+      "stage": "workspace",
+      "elapsed_ms": 3396.53
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 3414.83
+    },
+    {
+      "url": "http://127.0.0.1:42403/reports",
+      "stage": "reports",
+      "elapsed_ms": 3550.47
+    },
+    {
+      "url": "http://127.0.0.1:42403/result?[REDACTED_QUERY]",
+      "stage": "generate",
+      "elapsed_ms": 3833.65
+    }
+  ],
+  "stages": [
+    {
+      "key": "login.open",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 105.39
+    },
+    {
+      "key": "login.username",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 207.93
+    },
+    {
+      "key": "login.password",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 19.11
+    },
+    {
+      "key": "login.credentials",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 99.39
+    },
+    {
+      "key": "login.second_factor",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 155.82
+    },
+    {
+      "key": "login",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 1852.36
+    },
+    {
+      "key": "navigate.start",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 46.23
+    },
+    {
+      "key": "workspace",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 144.9
+    },
+    {
+      "key": "documents",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 27.92
+    },
+    {
+      "key": "reports",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 141.48
+    },
+    {
+      "key": "category",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 108.75
+    },
+    {
+      "key": "order-enabled",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 33.98
+    },
+    {
+      "key": "order",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 11.71
+    },
+    {
+      "key": "date",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 13.77
+    },
+    {
+      "key": "generate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 107.77
+    },
+    {
+      "key": "capture",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 88.09
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "username",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "username",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "password",
+      "strategy": "label",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "password",
+      "strategy": "label",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-in",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-in",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "verify",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "verify",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    }
+  ],
+  "captured_files": [
+    {
+      "path": "documents/report.pdf",
+      "method": "native_download",
+      "bytes": 602,
+      "sha256": "1e348a3cea063625958597e67174cff8cc8bb7e9cf1bc5b36bb25beb65c78e1b"
+    }
+  ],
+  "duration_ms": 4040.36
+}

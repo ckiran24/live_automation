@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "run_id": "2ef0ac9cabe4463ba7ed8e1263b396b2",
+  "started_at": "2026-10-15T07:36:11.324458+00:00",
+  "portal": "local-acceptance-fixture",
+  "inputs": {
+    "category": "Books",
+    "order": "Book A",
+    "date": "2026-10-15"
+  },
+  "status": "failed",
+  "session": {
+    "state": "loaded",
+    "reused": true,
+    "full_login": false
+  },
+  "pages_visited": [
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "session.validate",
+      "elapsed_ms": 1128.69
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "navigate.start",
+      "elapsed_ms": 1299.47
+    },
+    {
+      "url": "http://127.0.0.1:42403/workspace",
+      "stage": "workspace",
+      "elapsed_ms": 1489.22
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 1533.68
+    },
+    {
+      "url": "http://127.0.0.1:42403/reports",
+      "stage": "reports",
+      "elapsed_ms": 1645.13
+    },
+    {
+      "url": "http://127.0.0.1:42403/result?[REDACTED_QUERY]",
+      "stage": "generate",
+      "elapsed_ms": 2075.17
+    }
+  ],
+  "stages": [
+    {
+      "key": "session.validate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 310.11
+    },
+    {
+      "key": "navigate.start",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 66.11
+    },
+    {
+      "key": "workspace",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 180.07
+    },
+    {
+      "key": "documents",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 47.42
+    },
+    {
+      "key": "reports",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 108.64
+    },
+    {
+      "key": "category",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 118.26
+    },
+    {
+      "key": "order-enabled",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 94.48
+    },
+    {
+      "key": "order",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 43.71
+    },
+    {
+      "key": "date",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 21.43
+    },
+    {
+      "key": "generate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 148.32
+    },
+    {
+      "key": "capture",
+      "attempt": 1,
+      "status": "failed",
+      "error_type": "LocatorUnavailable",
+      "retryable": true,
+      "duration_ms": 1573.45
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "deliberately-broken",
+      "strategy": "css_1",
+      "frame": 0,
+      "outcome": "miss"
+    }
+  ],
+  "captured_files": [],
+  "failure": {
+    "stage": "capture",
+    "error_type": "LocatorUnavailable",
+    "bundle": "failure/evidence.json"
+  },
+  "duration_ms": 4025.55
+}

@@ -1,0 +1,598 @@
+{
+  "schema_version": 1,
+  "run_id": "15118e5400684c788fdb82b165094ec3",
+  "started_at": "2026-10-15T07:36:03.612835+00:00",
+  "portal": "local-acceptance-fixture",
+  "inputs": {
+    "category": "Books",
+    "order": "Book A",
+    "date": "2026-10-15"
+  },
+  "status": "success",
+  "session": {
+    "state": "stale",
+    "reused": false,
+    "full_login": true
+  },
+  "pages_visited": [
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "session.validate",
+      "elapsed_ms": 789.93
+    },
+    {
+      "url": "http://127.0.0.1:42403/login",
+      "stage": "login.open",
+      "elapsed_ms": 1659.63
+    },
+    {
+      "url": "http://127.0.0.1:42403/two-factor",
+      "stage": "login.credentials",
+      "elapsed_ms": 2073.13
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "login.second_factor",
+      "elapsed_ms": 2225.79
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "login.second_factor",
+      "elapsed_ms": 3426.95
+    },
+    {
+      "url": "http://127.0.0.1:42403/account",
+      "stage": "navigate.start",
+      "elapsed_ms": 3570.77
+    },
+    {
+      "url": "http://127.0.0.1:42403/workspace",
+      "stage": "workspace",
+      "elapsed_ms": 3689.97
+    },
+    {
+      "url": "http://127.0.0.1:42403/documents",
+      "stage": "documents",
+      "elapsed_ms": 3809.91
+    },
+    {
+      "url": "http://127.0.0.1:42403/reports",
+      "stage": "reports",
+      "elapsed_ms": 3955.61
+    },
+    {
+      "url": "http://127.0.0.1:42403/result?[REDACTED_QUERY]",
+      "stage": "generate",
+      "elapsed_ms": 4418.53
+    }
+  ],
+  "stages": [
+    {
+      "key": "session.validate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 695.73
+    },
+    {
+      "key": "login.open",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 70.98
+    },
+    {
+      "key": "login.username",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 132.04
+    },
+    {
+      "key": "login.password",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 68.82
+    },
+    {
+      "key": "login.credentials",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 193.29
+    },
+    {
+      "key": "login.second_factor",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 117.53
+    },
+    {
+      "key": "login",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 1929.61
+    },
+    {
+      "key": "navigate.start",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 23.58
+    },
+    {
+      "key": "workspace",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 151.15
+    },
+    {
+      "key": "documents",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 110.06
+    },
+    {
+      "key": "reports",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 142.21
+    },
+    {
+      "key": "category",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 117.01
+    },
+    {
+      "key": "order-enabled",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 39.29
+    },
+    {
+      "key": "order",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 12.92
+    },
+    {
+      "key": "date",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 36.32
+    },
+    {
+      "key": "generate",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 244.0
+    },
+    {
+      "key": "capture",
+      "attempt": 1,
+      "status": "passed",
+      "duration_ms": 122.63
+    }
+  ],
+  "resolver_attempts": [
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "username",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "username",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "password",
+      "strategy": "label",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "password",
+      "strategy": "label",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-in",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-in",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "code",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "verify",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "verify",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "text",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "rejected",
+      "strategy": "structure",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "account",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "sign-out",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "workspace",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "reports",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "category",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order-enabled",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "order",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "date",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "miss"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": 1,
+      "outcome": "match"
+    },
+    {
+      "target": "generate",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": 0,
+      "outcome": "match"
+    },
+    {
+      "target": "capture",
+      "strategy": "role_name",
+      "frame": null,
+      "outcome": "selected"
+    }
+  ],
+  "captured_files": [
+    {
+      "path": "documents/report.pdf",
+      "method": "native_download",
+      "bytes": 602,
+      "sha256": "1e348a3cea063625958597e67174cff8cc8bb7e9cf1bc5b36bb25beb65c78e1b"
+    }
+  ],
+  "duration_ms": 4698.52
+}

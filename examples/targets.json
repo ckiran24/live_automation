@@ -1,0 +1,5 @@
+[
+  {"key": "category", "role": "combobox", "name": "Category", "label": "Category", "css": ["#category"]},
+  {"key": "order", "role": "combobox", "name": "Order", "label": "Order", "css": ["#order"]},
+  {"key": "date", "role": "textbox", "name": "Statement date", "label": "Statement date", "css": ["#date"]}
+]

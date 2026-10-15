@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Local demo (no account needed)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "automation",
+      "args": ["demo", "--output", "runs/vscode-demo"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "GitHub preview (requires password and TOTP)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "automation",
+      "args": ["run", "--portal", "portals/github.json", "--inputs", "examples/inputs.github.json"],
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Offline resolver",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "automation",
+      "args": ["offline", "--html", "examples/mutated-form.html", "--targets", "examples/targets.json"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}
