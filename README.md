@@ -1,9 +1,14 @@
-**##Live-automation**
-A Python/Playwright runner with automated email or TOTP codes, reusable browser state, semantic locator fallbacks, PDF/download capture, redacted failure evidence, and an authenticated localhost job queue with a small browser UI.
+# Bravebird Browser Automation
 
-To run the downloaded project locally, follow [Download and run in VS Code](docs/VSCODE.md), including Windows and macOS/Linux commands and ready-to-use debugger configurations.
+This project automates a real GitHub release-preview workflow with Playwright. It signs in with a GitHub password and authenticator code, checks and reuses browser sessions, fills the release form in `ckiran24/shopping_bot`, and saves a PDF preview. It does **not** publish a release or save a draft.
 
-Clone and open the project from PowerShell:
+The required workflow has passed the live acceptance run: fresh login, session reuse, recovery from corrupted state, and a run with changed inputs. Offline locator mutation, failure-evidence redaction, and all 17 local tests also pass. The optional local job API and browser UI are implemented and tested. See [validation evidence](docs/VALIDATION.md) for what was run and where its private live artifacts remain.
+
+For a detailed, file-by-file explanation, use the [project study guide](docs/PROJECT_STUDY_GUIDE.pdf). The [CTO final-round practice pack](docs/CTO_FINAL_ROUND_QA.pdf) is a separate interview-preparation document.
+
+## Run it in VS Code
+
+Clone the repository and open its root folder:
 
 ```powershell
 git clone https://github.com/ckiran24/live_automation.git
@@ -11,176 +16,81 @@ cd live_automation
 code .
 ```
 
-## One-command setup
-
-Requires Python 3.11+ and Linux/macOS with Chromium dependencies installed:
-
-```bash
-bash scripts/setup.sh
-```
-
-This creates `.venv`, installs pinned dependencies from `requirements.lock`, and uses `BROWSER_EXECUTABLE`, system Chromium, or installs Playwright Chromium. A machine missing browser OS libraries can use Playwright's documented `python -m playwright install --with-deps chromium` with administrator access. TLS/checksum verification stays enabled.
-
-Run the complete local demonstration with disposable credentials:
-
-```bash
-.venv/bin/python -m automation demo --output runs/demo
-.venv/bin/python -m unittest discover -v
-```
-
-Use a fresh demo output path each time. Existing output is preserved. The demo runs the HTTP fixture in a background thread **inside the same process**; it needs no queue, database, or external server. Its temporary account and TOTP seed are synthetic. It demonstrates the mechanics, not the real-site requirement.
-
-## Live GitHub run
-
-First follow [GitHub authentication setup](docs/GITHUB_SETUP.md) to establish a native password and authenticator/TOTP enrollment. In PowerShell, copy `.env.example` to `.env` using `Copy-Item .env.example .env`, then enter the values in the new file. The CLI loads the project-root `.env` automatically without displaying its contents. Alternatively, supply process environment variables through a password manager or runtime. Do not put secret values in JSON, screenshots, Git, or chat.
-
-| Variable | Purpose |
-| --- | --- |
-| `PORTAL_USERNAME` | Your GitHub username |
-| `PORTAL_PASSWORD` | Your native GitHub password |
-| `PORTAL_TOTP_SECRET` | Base32 enrollment seed for your GitHub authenticator (not the changing code) |
-| `BROWSER_EXECUTABLE` | Optional Chromium executable override |
-
-The TOTP seed must be available to the Python process. An HTTPS proxy substitution placeholder is not a usable authenticator seed. If your cloud settings only support destination-bound proxy secrets, run this workflow locally with your password manager rather than pasting credentials into chat.
-
-Check which required settings are present and whether the TOTP seed is valid without displaying any values:
+Use Python 3.11 or newer. In the VS Code terminal on Windows, create the environment and install the pinned packages and browser:
 
 ```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.lock
+.\.venv\Scripts\python.exe -m playwright install chromium
+```
+
+On macOS or Linux, run `bash scripts/setup.sh`. It creates `.venv`, installs from the same lock file, and uses system Chromium or installs Playwright Chromium if needed.
+
+Run the local demo and tests; neither needs a GitHub account:
+
+```powershell
+.\.venv\Scripts\python.exe -m automation demo --output runs/local-demo
+.\.venv\Scripts\python.exe -m unittest discover -v
+```
+
+The demo uses a disposable local portal. It covers login, TOTP, session reuse, dependent form fields, document capture, retry, and a deliberately broken step. Use a new `--output` directory each time because existing run output is preserved.
+
+## Run the live GitHub workflow
+
+Follow [GitHub authentication setup](docs/GITHUB_SETUP.md). Copy `.env.example` to `.env` and enter your GitHub username, native GitHub password, and Base32 authenticator enrollment seed in that local file. The seed is not the changing six-digit code. Never commit `.env`, send credentials in chat, or put them in a portal/input JSON file. The command below checks configuration without printing secret values:
+
+```powershell
+Copy-Item .env.example .env
+code .env
 .\.venv\Scripts\python.exe -m automation check-config
 ```
 
-On macOS/Linux use `.venv/bin/python -m automation check-config`.
-
-The optional `portals/github-email.json` adapter uses native GitHub password login followed by email device verification. It does not implement Google SSO. For that optional mode:
-
-| Variable | Purpose |
-| --- | --- |
-| `IMAP_HOST` | Mail provider's TLS IMAP hostname |
-| `IMAP_USERNAME` | Mailbox login receiving this account's GitHub codes |
-| `IMAP_PASSWORD` | Mail-provider app password, when supported |
-| `IMAP_ACCESS_TOKEN` | Alternative short-lived OAuth access token for XOAUTH2 |
-| `IMAP_SENDER` | Expected exact sender address, usually `noreply@github.com`; confirm from your email |
-| `IMAP_SUBJECT` | Subject substring; default `GitHub` |
-| `IMAP_FOLDER` | Folder to poll; default `INBOX` |
-| `IMAP_CODE_PATTERN` | Regex with one capture group; default `(?<!\d)(\d{6,8})(?!\d)` |
-| `IMAP_TIMEOUT_SECONDS` | Total polling budget, default 90, maximum 300 |
-| `IMAP_POLL_SECONDS` | Poll interval, default 3 |
-| `BROWSER_EXECUTABLE` | Optional Chromium executable override |
-
-Enable IMAP and use an app password or an OAuth token according to your mail provider. Do not weaken mailbox security to enable ordinary password login. TLS certificates are verified. IMAP uses TLS port 993 and needs an actual credential in the local process. An HTTPS-only proxy secret placeholder **cannot** authenticate a raw IMAP socket; configure this in a suitable runtime or run locally. GitHub requires HTTPS access to `github.com` and its page assets, commonly `github.githubassets.com` and `avatars.githubusercontent.com`; the mailbox needs its actual provider hostname. This environment has package-manager/GitHub access but no mailbox credentials.
-
-```bash
-.venv/bin/python -m automation run \
-  --portal portals/github.json \
-  --inputs examples/inputs.github.json
-```
-
-Run the same command again to reuse `.state/github.json`. To generate a different PDF without changing code:
-
-```bash
-.venv/bin/python -m automation run \
-  --portal portals/github.json \
-  --inputs examples/inputs.github.alternate.json
-```
-
-`--headed` is available on a machine with a display. `--state` chooses a session path; `--output` chooses a fresh run directory. Exit codes: 0 success, 1 runtime failure with manifest/evidence, 2 invalid setup/configuration before execution, 130 interrupted. Concurrent invocations must use different state/output paths; the intended shape is one sequential CLI process.
-
-The live path is private profile → repository → releases → new release. The form contains tag, target branch, title, and notes. A **new, non-existing tag choice makes the target branch relevant**; use a unique tag in the input. Selecting that tag in the form does not create it on GitHub until publishing. The runner renders the Markdown preview and prints the page using Chromium. It never clicks Publish or Save draft. Your `shopping_bot` repository is not modified. The live fresh-login/reuse/corrupt-state/alternate-input matrix passed; see [validation status](docs/VALIDATION.md). An already existing tag, GitHub UI change, email challenge variation, CAPTCHA, passkey prompt, or account-policy requirement can require adapting `portals/github.json` and revalidating the live flow.
-
-To execute the real-account acceptance matrix on Windows, use the PowerShell script below after `.env` is configured. It performs a fresh login, a reused-session run, corrupt-state recovery, and an alternate-input run. It stores its test session under `.state\acceptance\` and outputs manifests/PDFs under a new `runs\live-acceptance-*` folder; your regular `.state\github.json` is untouched. Add `-Headed` to watch the browser.
+Start a preview run from the repository root:
 
 ```powershell
-.\scripts\test-live.ps1
-# or
-.\scripts\test-live.ps1 -Headed
+.\.venv\Scripts\python.exe -m automation run --portal portals/github.json --inputs examples/inputs.github.json --headed
 ```
 
-## Local FIFO job API (extra credit)
+The command prints the manifest path. The PDF is beside that manifest under `documents\shopping-bot-release-preview.pdf`. Run `scripts/test-live.ps1 -Headed` to repeat all four live checks with a separate test session and output directory. The script does not publish a release.
 
-The API places a bounded queue in front of the same runner. It binds only to `127.0.0.1`, accepts only project-local JSON portal/input paths, requires a bearer token, and runs one job at a time so jobs cannot race over the API's saved browser session. It uses separate `.state\api-<portal>.json` state files from the CLI. No web framework or additional package is required. Start it in one PowerShell terminal:
+The business values live in `examples/inputs.github.json`; the portal selectors and action sequence live in `portals/github.json`. `examples/inputs.github.alternate.json` changes the title, notes, tag, and output filename without a code change. A unique tag should be used for each real preview.
+
+## Use the local job queue and UI
+
+The API adds a bounded FIFO queue in front of the same runner. It accepts one job at a time, binds only to `127.0.0.1`, requires a bearer token, and only accepts project-local JSON paths. Start it in PowerShell:
 
 ```powershell
 .\.venv\Scripts\python.exe -m automation api
 ```
 
-The first start creates the private, Git-ignored `.state\api-token.json`. Open `http://127.0.0.1:8765/` in your browser, copy the token value from `.state\api-token.json` into the password field, choose project-relative portal/input JSON files, and queue a run. The UI polls until completion and displays the job ID and manifest path. The token is held only in the page's memory and is not stored in browser storage. The UI is served by the same loopback-only process; do not expose the port to a network or enter the token into another site.
+Open `http://127.0.0.1:8765/`. The first start creates `.state\api-token.json`; enter its token in the UI, choose portal and input JSON paths, and queue the run. The token stays in page memory. Do not expose the API to a network or enter its token into another site. The UI shows job status and the manifest path when the run finishes.
 
-You can also submit and poll a job from a second PowerShell terminal:
+The API can also be called directly. `POST /jobs` submits a job, `GET /jobs/{id}` reports its status, and `GET /health` reports queue health. The pending queue is bounded (eight by default); when it is full, the API returns HTTP 429. This is a local single-worker queue, not a durable or horizontally scaled service.
 
-```powershell
-$token = (Get-Content .\.state\api-token.json -Raw | ConvertFrom-Json).token
-$headers = @{ Authorization = "Bearer $token" }
-$body = @{ portal = "portals/github.json"; inputs = "examples/inputs.github.json"; headed = $true } | ConvertTo-Json
-$job = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8765/jobs -Headers $headers -ContentType "application/json" -Body $body
-do {
-    Start-Sleep -Seconds 1
-    $result = Invoke-RestMethod -Uri "http://127.0.0.1:8765/jobs/$($job.id)" -Headers $headers
-} while ($result.status -in @("queued", "running"))
-$result
-```
+## How the automation works
 
-`POST /jobs` returns a job ID, `GET /jobs/{id}` returns status and the eventual manifest path, and `GET /health` reports queue health. The pending queue is bounded (default 8; change with `--max-queued`); a full queue returns HTTP 429. Stop the service with Ctrl+C. Keep the token file private and do not bind the service to a LAN address.
+The authenticator provider computes a time-based code locally from the enrollment seed. The optional email provider polls a configured mailbox over TLS and accepts a fresh message only when its sender, subject, date, and code match. When GitHub clearly rejects a code, the runner allows one new-code attempt. It does not resubmit a code after an ambiguous network error; a second rejection or unsupported challenge fails safely.
 
-The default adapter requires an actual TOTP challenge. GitHub email verification commonly confirms a new device and is **not GitHub account-level 2FA**. Do not claim account-level 2FA based on an email device code. The optional email adapter fails if no email challenge appears. The native adapter stops on an unexpected Google SSO origin before filling credentials.
+To decide whether to reuse a saved session, the runner opens a private page in a separate tab and checks positive page markers plus the configured account identity. A login redirect is not the only signal: a private page that returns HTTP 200 with logged-out content still fails validation. Corrupt, malformed, wrong-origin, or expired state is discarded, a clean context is created, and login runs again. State is saved only after authentication is positively confirmed.
 
-## How the code works
+The locator resolver searches all current frames in this order:
 
-1. `automation/__main__.py` parses the CLI and selects a real run, offline resolver check, or local demonstration.
-2. `config.py` loads a portal JSON and a separate business-input JSON. It substitutes only literal `{{inputs.key}}` and `{{env.NAME}}` tokens, with no Python evaluation. `models.py` validates the action shapes, HTTPS origin, bounded timeouts/retries, and locator descriptions. Business changes belong in input JSON; portal UI changes belong in the portal specification.
-3. `runner.py` creates a fresh output directory and Chromium context. It loads a versioned storage-state envelope only for the configured origin. Invalid JSON/schema/cookies are discarded; a readable file is not treated as a valid login.
-4. `authenticated()` opens a private page in a separate tab and checks at least **two positive authenticated-page markers**. GitHub additionally checks that the personal-profile link points to the configured username. The fixture also checks an authenticated JSON endpoint. A private URL returning HTTP 200 with an expired-session message still fails. Network/server errors retry instead of being misclassified as logout.
-5. If the state is dead, a fresh context removes both cookies and localStorage. The runner enters username/password, waits for the configured challenge, calls `await provider.get_code(challenge)`, fills it, and verifies the authenticated page again. It saves `context.storage_state()` only after successful validation. Rotated state is refreshed at the end. State is sensitive, excluded from Git, written atomically with mode 0600, and should be stored on encrypted disk. SessionStorage-only portals need a separate adapter.
-6. The sequential action engine visits pages, fills/selects fields, waits for dependent controls, and captures a download, an HTML popup printed to PDF, or the current page printed to PDF. Captures have explicit safe basenames, non-empty content, PDF magic validation, byte counts, and SHA-256 hashes. It does not use a server-provided filename as a filesystem path. A popup showing a browser PDF viewer needs a native-download adapter; `popup_pdf` is for HTML print views.
-7. `manifest.json` records redacted business inputs, main-page/popup visits, elapsed time per stage and attempt, retry backoff, whether the session was reused, every resolver strategy attempted, and captured-file metadata. Configuration failures before a browser exists return a safe diagnostic class; browser-stage failures also produce a failure bundle.
+1. Accessible role and exact name, because it reflects what a user sees and usually survives styling changes.
+2. Associated form label, because labels express a control's purpose and survive wrapper or sibling changes.
+3. Exact visible text and nearby field text, for markup with incomplete accessibility names.
+4. Portal-specific structural relationships, for unusual but stable DOM relationships.
+5. CSS selectors, as a last resort because IDs and classes often change during redesigns.
 
-### How the second-factor code arrives and what happens when it is wrong
+Every target has at least two locator descriptions. Multiple visible matches fail as ambiguous instead of selecting an arbitrary control. The offline command uses the same resolver with network access blocked. The mutation fixture renames classes, reorders siblings, adds a wrapper, and places fields in an iframe.
 
-For authenticator login, `TOTPProvider` generates a time-based code locally from the Base32 enrollment seed in `PORTAL_TOTP_SECRET`; no message is sent or polled. For email device verification, `IMAPProvider` waits for GitHub's new-device email and obtains the code from the configured mailbox. `portals/github.json` selects TOTP, while `portals/github-email.json` selects IMAP.
+The project handles dependent form fields, nested frames, asynchronous controls, TOTP/email challenges, session expiration, native downloads, HTML print views, PDF printing, retries, and sanitized failure evidence. Transient timeouts, connection resets, HTTP 429/5xx responses, temporarily unavailable locators, and dropped IMAP connections can retry with bounded exponential backoff. A click or other side effect is not retried unless the portal explicitly marks it safe. Invalid configuration, ambiguous locators, authentication rejection, most 4xx responses, unsupported challenges, and invalid documents fail without repeated side effects.
 
-`otp.py` defines the interface `async def get_code(challenge) -> str`. `IMAPProvider` runs blocking TLS IMAP work using `asyncio.to_thread`, polls only the chosen mailbox in read-only mode, searches the challenge date, and fetches the newest 50 matching-day messages with `BODY.PEEK[]` (does not mark them read). It accepts a message only when sender and subject match and its Date is within the challenge window (30 seconds of clock skew). Plain text is preferred over HTML. Exactly one distinct code must match the regex; ambiguous messages are ignored. Already-consumed message UIDs and the previous rejected code are excluded.
+For one hundred portals, the first changes should be versioned portal adapters, contract tests against consented and sanitized DOM captures, account-scoped secret/session isolation, structured health metrics, and per-portal rate limits and locking. The current queue serializes jobs and does not implement concurrent portals or proxy routing; those require account isolation, consent, operational controls, and separate validation.
 
-A clearly rejected code gets exactly **one** retry. If the adapter defines a resend control, it requests a fresh email before polling again. A second rejection is final. A timeout, invalid mailbox credentials, TLS verification failure, missing challenge, or unsupported account prompt is not silently bypassed. Network failures during code submission are not blindly resubmitted. Codes and credentials are never emitted to logs. Keep the host clock synchronized; only email header timestamps are checked, so a provider-specific inbox integration is preferable for stronger delivery/provenance guarantees.
+## What to submit
 
-`TOTPProvider` is the default real implementation using PyOTP/RFC 6238. `portals/github.json` selects it and defines the GitHub challenge locators. Supply `PORTAL_TOTP_SECRET` (the existing Base32 authenticator seed). It avoids near-expiry codes and waits for the next 30-second window after rejection. The seed never belongs in input JSON. A six-digit OTP is not an enrollment seed.
+Submit the Git repository at `https://github.com/ckiran24/live_automation`, including the tracked source, portal and input specifications, tests, scripts, README, validation record, and the two study PDFs. The tracked `examples/output/` files come from the disposable local fixture and are clearly labeled as fixture output. For a strong live-demo hand-in, add one reviewed successful GitHub manifest and its generated PDF under a clearly named `submission-artifacts/github-live/` folder if the assignment expects run artifacts. Those files are currently in the ignored local `runs/` directory and will not be pushed automatically.
 
-### Locator strategy order and offline operation
+Do not add `.env`, `.state/`, `.venv/`, or ignored `runs/` data. Live manifests and PDFs are on your computer and can contain account-related information; include one only if the evaluator requests it and you have reviewed it. The repository is already pushed to `main`; check `git status` before making your final submission.
 
-`resolver.py` tries these strategies in order, across **all current frames**, including nested iframes:
-
-1. Exact accessible role and name: matches user-facing semantics and is usually stable across styling changes.
-2. Associated label: uses the form's own meaning and survives layout, wrappers, sibling reordering, and class changes.
-3. Exact visible text, then nearby text in a label/fieldset/field block: supports controls whose accessible name is missing while staying tied to nearby wording.
-4. Structural relationship supplied by the portal adapter: handles unusual markup when semantic hooks are absent.
-5. ID/class CSS alternatives as the final fallback: useful for portal-specific controls, but most likely to break during redesign.
-
-Each target must describe at least two strategies. The resolver records target key, strategy, frame index, and match/miss/selected/ambiguous outcome. It waits within a bounded deadline for asynchronously loaded controls and frames. Multiple visible matches fail explicitly; it never chooses `.first` arbitrarily. A semantic match anywhere in the frame tree wins before a weaker main-frame CSS match.
-
-```bash
-.venv/bin/python -m automation offline \
-  --html examples/saved-form.html --targets examples/targets.json
-.venv/bin/python scripts/mutate_html.py examples/saved-form.html /tmp/mutated-form.html
-.venv/bin/python -m automation offline \
-  --html /tmp/mutated-form.html --targets examples/targets.json
-```
-
-The mutation command renames classes, reverses field siblings, adds a wrapper and moves the form into an iframe. The offline command uses the **same resolver** as production, disables JavaScript/service workers and aborts all network requests. Saved iframe HTML must use `srcdoc`, because remote frame contents cannot be reconstructed offline. The checked-in fixture is intentionally non-sensitive; failure HTML is aggressively redacted and is not a resolver replay fixture.
-
-### Quirks, retries, and evidence
-
-The fixture exercises iframe traversal, dependent category→order selection, a native download, a new-tab HTML print view, current-page print-to-PDF, and a broken step that produces sanitized evidence. The GitHub adapter handles dependent tag→target-branch selection, a create-new-tag dialog, a Markdown release preview, and print-to-PDF. The live acceptance matrix has passed for fresh login, reuse, corrupted-state recovery, and alternate inputs; see [validation status](docs/VALIDATION.md).
-
-Transient navigation resets, connection/timeouts, HTTP 429/5xx, temporarily missing locators, and dropped IMAP connections may retry. A safe action gets at most `attempts` tries (default 3, maximum 5), with exponential backoff. Fill/select/wait are idempotent; safe navigation opts in. Clicks, downloads, OTP submissions, and other potentially repeated side effects **do not retry automatically** unless the adapter explicitly marks them safe. Authentication rejection, ambiguous targets, invalid inputs/configuration, HTTP 4xx other than 429, unsupported challenges, invalid documents, and exhausted retries are final. There is no anti-bot bypass; use another permitted portal if GitHub blocks automation.
-
-On final browser-stage failure, `failure/` contains `evidence.json` (stage, error class, URL origin with masked path, console events, resolver attempts), `page.html`, and `screenshot.png` when the browser/page is available. Browser console messages may contain unknown identifiers, so only event type is retained. Evidence HTML retains structural tags but masks **all** page-controlled text/attributes and removes scripts, images, SVG, canvas, and embedded frames. The screenshot is taken from an inert, network-blocked sanitized copy, not a raw account page. This intentionally trades visual detail for reliable identifier redaction. Resolver history still identifies the missing control and strategy. If the browser crashes before capture, the JSON records a capture error; no fake screenshot is generated.
-
-Manifests redact registered environment credentials, configured sensitive input values (including the GitHub owner), emails, and URL query values. Raw exception strings are not persisted because Playwright call logs can quote field values. Final run output contains a status and manifest path only. Downloaded documents are private account data, stored mode 0600 under ignored `runs/`; failure evidence and disposable fixture examples are the only artifacts intended for sharing.
-
-### What I would change first for a hundred portals
-
-Keep the runner and code-provider interface, but replace large hand-written JSON workflows with versioned portal adapters and contract tests based on consented, sanitized DOM captures. Separate authentication from document workflows, add scoped credential/session storage per account and origin, and record structured health metrics so UI changes are detectable. Only after that add a bounded worker queue, per-portal rate limits, cancellation and account-level locking. Avoid building proxy/fingerprint/CAPTCHA infrastructure before the five core requirements work.
-
-## Submission artifacts and remaining validation
-
-`examples/output/` contains genuine **local fixture** outputs: successful download/PDF, first/reused-session manifests, a deliberately broken-step failure bundle, and an acceptance summary. The live GitHub acceptance run passed on the user's Windows machine; its private manifests/PDFs remain on that machine and should be reviewed before submission.
-
-Before submission, include a reviewed live success manifest/PDF and a sanitized failure bundle if requested by the evaluator. Do not submit `.env`, `.state/`, or unreviewed account data. The local fixture and offline mutated-HTML exercise are distinct from the real-account run. The submission repository is `https://github.com/ckiran24/live_automation`.
+Useful references: [VS Code setup](docs/VSCODE.md), [GitHub setup](docs/GITHUB_SETUP.md), and [validation evidence](docs/VALIDATION.md).

@@ -54,7 +54,7 @@ Run the tests using the same interpreter:
 .venv/bin/python -m unittest discover -v
 ```
 
-The Linux cloud run passed all nine tests. The Windows commands and debugger configuration are provided for local use; Windows was not available for validation in this environment.
+The full local suite has 17 tests and passed in the development environment. The real GitHub acceptance matrix (fresh login, reuse, corrupted-state recovery, and changed inputs) was also completed from PowerShell on the user's Windows machine. The live manifests and PDFs remain on that machine.
 
 ## Your real GitHub account
 
@@ -62,6 +62,8 @@ Follow [GITHUB_SETUP.md](GITHUB_SETUP.md) to enable the selected native GitHub p
 
 Run `.\.venv\Scripts\python.exe -m automation check-config` in PowerShell to check the required settings without showing their values. Then choose **GitHub preview (requires password and TOTP)** in **Run and Debug** and press **F5**, or run the command below in a terminal. Both CLI launches load the project-root `.env` automatically.
 
-The configured target is `ckiran24/shopping_bot`. The workflow fills an unpublished release preview and prints a PDF. The authenticated GitHub UI still requires live validation against your account; the local demo does not establish that the real portal works.
+The configured target is `ckiran24/shopping_bot`. The workflow fills an unpublished release preview and prints a PDF. The local demo validates mechanics with synthetic credentials; it does not replace the completed live GitHub acceptance run.
+
+For a full code walkthrough and interview preparation, see [PROJECT_STUDY_GUIDE.pdf](PROJECT_STUDY_GUIDE.pdf) and [CTO_FINAL_ROUND_QA.pdf](CTO_FINAL_ROUND_QA.pdf).
 
 The ZIP includes source, documentation, debugger settings, and synthetic example results. It excludes Git metadata, virtual environments, caches, real run/session state, and populated environment files. It is a source snapshot, not a clone containing commit history. You can initialize Git locally if you want history for your own changes.
