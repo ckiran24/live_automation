@@ -131,7 +131,7 @@ The mutation command renames classes, reverses field siblings, adds a wrapper an
 
 ### Quirks, retries, and evidence
 
-The fixture exercises iframe traversal, dependent category→order selection, a native download, a new-tab HTML print view, and current-page print-to-PDF. The GitHub adapter uses its dependent tag→target-branch form and print-to-PDF; their live behavior is pending account validation.
+The fixture exercises iframe traversal, dependent category→order selection, a native download, a new-tab HTML print view, and current-page print-to-PDF. The GitHub adapter uses its dependent tag→target-branch form and print-to-PDF. A live run has completed successfully with a reused session and captured the release preview PDF; see [validation status](docs/VALIDATION.md) for the remaining live acceptance checks.
 
 Transient navigation resets, connection/timeouts, HTTP 429/5xx, temporarily missing locators, and dropped IMAP connections may retry. A safe action gets at most `attempts` tries (default 3, maximum 5), with exponential backoff. Fill/select/wait are idempotent; safe navigation opts in. Clicks, downloads, OTP submissions, and other potentially repeated side effects **do not retry automatically** unless the adapter explicitly marks them safe. Authentication rejection, ambiguous targets, invalid inputs/configuration, HTTP 4xx other than 429, unsupported challenges, invalid documents, and exhausted retries are final. There is no anti-bot bypass; use another permitted portal if GitHub blocks automation.
 
@@ -145,6 +145,6 @@ Keep the runner and code-provider interface, but replace large hand-written JSON
 
 ## Submission artifacts and remaining validation
 
-`examples/output/` contains genuine **local fixture** outputs: successful download/PDF, first/reused-session manifests, a deliberately broken-step failure bundle, and an acceptance summary. See `docs/VALIDATION.md` for exact executed checks. The submission repository is `https://github.com/ckiran24/live_automation`.
+`examples/output/` contains genuine **local fixture** outputs: successful download/PDF, first/reused-session manifests, a deliberately broken-step failure bundle, and an acceptance summary. A user-reported successful live GitHub run is recorded in `docs/VALIDATION.md`; its private run directory is local to the user's Windows machine and has not been copied into this repository.
 
-Before calling this assignment complete, run the real GitHub workflow with the securely configured native account/TOTP seed, validate the current challenge/release selectors, and reproduce first login, reuse, stale state and changed-input cases on that account. Copy only deliberately reviewed, sanitized real-run outputs into the submission. The local fixture cannot substitute for that evidence.
+Before submission, complete the live fresh-login, stale-session recovery, and changed-input checks listed in `docs/VALIDATION.md`. Include the reviewed successful live manifest/PDF and one sanitized failure bundle in the submission artifacts. Do not submit `.env`, `.state/`, or unreviewed account data. The local fixture cannot substitute for missing live checks. The submission repository is `https://github.com/ckiran24/live_automation`.

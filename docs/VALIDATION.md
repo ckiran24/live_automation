@@ -21,11 +21,15 @@ These checks were executed in the cloud workspace on 15 October 2026. The browse
 | Retry classification | One HTTP 503 recovers with recorded backoff; unsafe capture click does not repeat | Passed locally |
 | Failure evidence | Intentionally absent download control | HTML, sanitized screenshot, stage/URL/console/strategy JSON written |
 | Redaction | Secret/identity checks in HTML/JSON; screenshot visually inspected | Passed for synthetic fixture; all page-controlled evidence text masked |
-| Real GitHub account | Public `shopping_bot` release page inspected; no releases existed | Read-only inspection passed; authenticated workflow unrun |
-| GitHub login choice | User chose native GitHub password + TOTP after clarifying their current Google SSO flow | Default adapter updated; account enrollment and secure credentials pending |
+| Real GitHub workflow | User reported successful run `runs\\20261015T144734Z-4ff2a107`; manifest status `success`, `session_reused: true` | Passed once with reused session; printed release-preview PDF recorded as `documents\\shopping-bot-release-preview.pdf` (105,824 bytes). Run output is on the user's Windows machine, not copied into this repository |
+| GitHub fresh login | Earlier fresh-login attempt reached the release form after password/TOTP; it failed on selectors before the later successful reused-session run | Login was observed working, but a complete successful fresh-login-to-PDF run remains unverified |
+| GitHub stale-session recovery | Not yet run on the live account after the successful workflow | Pending |
+| GitHub changed input | Fixture test produces a different PDF when inputs change; the live alternate input has not yet been run | Passed locally; live check pending |
+| GitHub release form | User confirmed current Tag → Create new tag dialog; later successful run captured its preview | Passed for tag selection, release preview, and print-to-PDF in the reported live run |
+| GitHub login choice | User chose native GitHub password + TOTP after clarifying their current Google SSO flow | TOTP submission succeeded during live login; complete fresh-login workflow still needs one successful end-to-end run |
 | GitHub submission | Submission repository is `ckiran24/live_automation` | See Git history for the source revision |
 
-The final complete unittest suite executed **9 tests**, all passed (70.497 seconds), including malformed cookie schema recovery and wrong-account identity rejection. The additional cookie-schema test first exposed a status-label bug; it was fixed and the complete suite rerun successfully. The generated CLI demonstration executed **9 scenarios**: 8 successful workflows and 1 expected intentional failure. The expected failure is a failure outcome with a bundle; it is not counted as a successful workflow.
+The final complete unittest suite executed **11 tests**, all passed (89.752 seconds), including malformed cookie schema recovery, wrong-account identity rejection, automatic second-factor submission, and the current GitHub tag dialog locators. The generated CLI demonstration executed **9 scenarios**: 8 successful workflows and 1 expected intentional failure. The expected failure is a failure outcome with a bundle; it is not counted as a successful workflow.
 
 The demonstration's first run took 4134.82 ms and its reused-session run took 2721.68 ms in the recorded sample. Browser startup and concurrent test load dominate these small cases; speed is not an asserted timing threshold. The functional reuse assertion checks that no login occurred.
 
@@ -42,4 +46,4 @@ bash scripts/setup.sh
 
 `examples/output/summary.json` is the actual fixture scenario summary. Example manifests and PDF are under `01-first-login` and `02-reuse`; the intentional bundle is under `06-intentional-failure/failure`. These artifacts are not a real GitHub run and must not be represented as one.
 
-Before submission, enable the chosen native GitHub password/TOTP flow and securely supply its credentials, run the full real-portal acceptance matrix, confirm the current release form dependency, and review the generated output. None of those live checks has been replaced by local tests.
+Remaining live acceptance work: run once after deleting `.state/github.json` and confirm a successful full password/TOTP login through PDF capture; run again and retain the reused-session manifest; corrupt a backup of the saved state and confirm automatic full-login recovery; use `examples/inputs.github.alternate.json` and confirm a different PDF without code changes. The successful reused-session run and current tag-dialog interaction are confirmed by the user, but its manifest/PDF remain on the user's machine. Copy a deliberately reviewed success manifest/PDF and a sanitized failure bundle into the submission artifacts. Never include `.env` or `.state/`.
