@@ -19,7 +19,7 @@ from .runner import Runner
 
 
 def parser():
-    result = argparse.ArgumentParser(description="Bravebird portal automation")
+    result = argparse.ArgumentParser(description=" GitHub-Automation")
     commands = result.add_subparsers(dest="command", required=True)
     run = commands.add_parser("run", help="Run a JSON-configured real portal")
     run.add_argument("--portal", type=Path, required=True)

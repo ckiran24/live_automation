@@ -1,12 +1,13 @@
 # Configure your real GitHub account
 
-This project uses native GitHub password + authenticator-app TOTP. If an account currently uses **Continue with Google**, that is a separate sign-in path; this adapter expects GitHub's native login form and stops safely if redirected to Google SSO.
+This project uses native GitHub password + authenticator-app TOTP. This adapter expects GitHub's native login form.
 
-1. While signed into GitHub, open **Settings → Password and authentication**. Establish or reset a native GitHub password if the account does not already have one. Use GitHub's own password/reset flow; a Google password is not a GitHub password.
-2. Under two-factor authentication, set up an authenticator app. Follow [GitHub's official TOTP instructions](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication).
-3. During enrollment, use GitHub's text/manual setup option to retain the **Base32 enrollment secret** in your password manager. Your authenticator app and this runner use the same seed to compute time-based codes. Do not send the seed, QR image, recovery codes, or live OTP to chat. Do not turn off existing security just to extract a seed; use a supported app export or GitHub's supported authenticator reconfiguration flow if necessary.
+To configure:
+1. While signed into GitHub, open **Settings → Password and authentication**. Establish or reset a native GitHub password if the account does not already have one. Use GitHub's own password/reset flow;
+2. Under two-factor authentication, set up an authenticator app. For this project, I have used Microsoft Authenticator. Follow [GitHub's official TOTP instructions](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication).
+3. During enrollment, use GitHub's text/manual setup option to retain the **Base32 enrollment secret** in your password manager. Your authenticator app and this runner use the same seed to compute time-based codes. Do not turn off existing security just to extract a seed; use a supported app export or GitHub's supported authenticator reconfiguration flow if necessary.
 4. Finish enrollment using the code from your authenticator app, and save the recovery codes privately. The runner never uses recovery codes.
-5. In PowerShell, copy `.env.example` to `.env` with `Copy-Item .env.example .env`, open `.env` in VS Code, and set `PORTAL_USERNAME`, `PORTAL_PASSWORD`, and `PORTAL_TOTP_SECRET`. The CLI loads the file automatically; `.gitignore` excludes it. You can also supply these values through a password manager or process environment. An HTTPS proxy-secret placeholder cannot be decoded by PyOTP.
+5. In PowerShell, copy `.env.example` to `.env` with `Copy-Item .env.example .env`, open `.env` in VS Code, and set `PORTAL_USERNAME`, `PORTAL_PASSWORD`, and `PORTAL_TOTP_SECRET`. The CLI loads the file automatically; `.gitignore` excludes it. You can also supply these values through a password manager or process environment.
 6. Verify in your own browser that native GitHub login now asks for your password and then the authenticator code. Do not share the password, seed, QR code, recovery codes, or live OTP.
 
 Check that the required settings exist and the TOTP seed is valid. This prints missing variable names only, never their values:

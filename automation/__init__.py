@@ -1,1 +1,1 @@
-"""Bravebird's single-process portal automation."""
+"""GitHub portal automation."""

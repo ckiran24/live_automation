@@ -1,10 +1,12 @@
-# Bravebird Browser Automation
+# Browser Automation
 
-This project automates a real GitHub release-preview workflow with Playwright. It signs in with a GitHub password and authenticator code, checks and reuses browser sessions, fills the release form in `ckiran24/shopping_bot`, and saves a PDF preview. It does **not** publish a release or save a draft.
+This project automates a real GitHub release-preview workflow with Playwright. It signs in with a GitHub password and authenticator code, checks and reuses browser sessions, fills the release form in `ckiran24/shopping_bot`, and saves a PDF preview. 
 
-The required workflow has passed the live acceptance run: fresh login, session reuse, recovery from corrupted state, and a run with changed inputs. Offline locator mutation, failure-evidence redaction, and all 17 local tests also pass. The optional local job API and browser UI are implemented and tested. See [validation evidence](docs/VALIDATION.md) for what was run and where its private live artifacts remain.
+The required workflow has passed the live acceptance run: fresh login, session reuse, recovery from corrupted state, and a run with changed inputs. 
 
-For a detailed, file-by-file explanation, use the [project study guide](docs/PROJECT_STUDY_GUIDE.pdf). The [CTO final-round practice pack](docs/CTO_FINAL_ROUND_QA.pdf) is a separate interview-preparation document.
+Offline locator mutation, failure-evidence redaction, and all local tests also pass. 
+
+Local job API and browser UI are implemented and tested. See [validation evidence](docs/VALIDATION.md) for what was run and where its private live artifacts remain.
 
 ## Run it in VS Code
 
