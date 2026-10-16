@@ -32,7 +32,7 @@ class CodeProvider(Protocol):
 
 
 class TOTPProvider:
-    """RFC 6238 codes from an existing authenticator seed, never from chat."""
+    """RFC 6238 codes from an existing authenticator seed"""
 
     def __init__(self, env_name: str, redactor: Redactor):
         secret = os.environ.get(env_name, "").strip()

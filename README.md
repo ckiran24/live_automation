@@ -87,12 +87,12 @@ Every target has at least two locator descriptions. Multiple visible matches fai
 
 The project handles dependent form fields, nested frames, asynchronous controls, TOTP/email challenges, session expiration, native downloads, HTML print views, PDF printing, retries, and sanitized failure evidence. Transient timeouts, connection resets, HTTP 429/5xx responses, temporarily unavailable locators, and dropped IMAP connections can retry with bounded exponential backoff. A click or other side effect is not retried unless the portal explicitly marks it safe. Invalid configuration, ambiguous locators, authentication rejection, most 4xx responses, unsupported challenges, and invalid documents fail without repeated side effects.
 
-For one hundred portals, the first changes should be versioned portal adapters, contract tests against consented and sanitized DOM captures, account-scoped secret/session isolation, structured health metrics, and per-portal rate limits and locking. The current queue serializes jobs and does not implement concurrent portals or proxy routing; those require account isolation, consent, operational controls, and separate validation.
+If scaling this project for >100 portals, the  changes should be 
+-decoupling logic to avoid CPU crash using distributed worker architecture like Redis,
+-containerize and deploy(horizontal scaling)
+-versioned portal adapters
+-contract tests against consented and sanitized DOM captures
+-account-scoped secret/session isolation
+-structured health metrics
+-per-portal rate limits and locking. The current queue serializes jobs and does not implement concurrent portals or proxy routing.
 
-## What to submit
-
-Submit the Git repository at `https://github.com/ckiran24/live_automation`, including the tracked source, portal and input specifications, tests, scripts, README, validation record, and the two study PDFs. The tracked `examples/output/` files come from the disposable local fixture and are clearly labeled as fixture output. For a complete live-evidence hand-in, add the reviewed `acceptance-summary.json`, four case manifests, and the fresh/alternate PDFs under `submission-artifacts/github-live/`. Those files are currently in the ignored local `runs/` directory and will not be pushed automatically.
-
-Do not add `.env`, `.state/`, `.venv/`, or ignored `runs/` data. Live manifests and PDFs are on your computer and can contain account-related information; include one only if the evaluator requests it and you have reviewed it. The repository is already pushed to `main`; check `git status` before making your final submission.
-
-Useful references: [VS Code setup](docs/VSCODE.md), [GitHub setup](docs/GITHUB_SETUP.md), and [validation evidence](docs/VALIDATION.md).
